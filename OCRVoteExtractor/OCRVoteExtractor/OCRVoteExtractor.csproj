@@ -40,7 +40,7 @@
     </Reference>
     <Reference Include="Emgu.CV.World, Version=4.1.0.3420, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\Emgu.CV.World.dll</HintPath>
+      <HintPath>..\Emgu.CV.World.dll</HintPath>
     </Reference>
     <Reference Include="GdPicture.NET.10, Version=10.0.0.14, Culture=neutral, PublicKeyToken=8e813b3278cff6ae, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

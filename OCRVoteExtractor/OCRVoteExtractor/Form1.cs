@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Emgu.CV;
+
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
 using Emgu.Util;
 using GdPicture10;
-
+using Emgu.CV;
 
 namespace OCRVoteExtractor
 {
@@ -33,7 +33,7 @@ namespace OCRVoteExtractor
             //    RecogSchema esquema = LeerXml();
             //    //DateTime fechaVoto = DateTime.Now;
             //foreach (string f in ficheros)            {
-            string f = "C:\\Users\\alain\\Downloads\\cuadros2\\cuadros\\cuadros\\DetectarCuadros\\imagen\\image1.jpg";
+            string f = "C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\image1.jpg";
             pintaCuadrados(f);
             //}
         }
@@ -111,11 +111,11 @@ namespace OCRVoteExtractor
         public void detectTemplate()
         {
 
-            Image<Bgr, byte> template = new Image<Bgr, byte>("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\logo1.png");
+            Emgu.CV.Image<Bgr, byte> template = new Emgu.CV.Image<Bgr, byte>("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\logo1.png");
 
             // Image<Bgr, byte> source = new Image<Bgr, byte>("C:\\Users\\alain\\Downloads\\cuadros2\\cuadros\\cuadros\\DetectarCuadros\\imagen\\1556274603WhatsAppImage2019-04-16at13.11.56_forCrop_NoticiaAmpliada.jpg");
 
-            Image<Bgr, byte> source = new Image<Bgr, byte>("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\image1.jpg");
+            Emgu.CV.Image<Bgr, byte> source = new Emgu.CV.Image<Bgr, byte>("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\image1.jpg");
             //Image<Bgr, byte> source = new Image<Bgr, byte>("C:\\Users\\alain\\Downloads\\cuadros2\\cuadros\\cuadros\\DetectarCuadros\\imagen\\coleccion-logos-redes-sociales-populares-circulos_1361-901.jpg");
             //MessageBox.Show("hola" + template.ToString());
 
@@ -143,5 +143,61 @@ namespace OCRVoteExtractor
             oGdPictureImaging.TwainSelectSource(this.Handle);
             MessageBox.Show(this.Handle.ToString());
         }
+
+        //    public static Rectangle DetectSquare(Image<Bgr, Byte> img, int dilate, int contour_area, int maxW, int minW, int maxH, int minH)
+        //    {
+        //        double cannyThreshold = 100.0;
+        //        double cannyThresholdLinking = 200.0;
+
+        //        Convert the image to grayscale and filter out the noise
+        //        Image<Gray, Byte> gray = img.Convert<Gray, Byte>().PyrDown().PyrUp();
+
+        //        try
+        //        {
+        //            Image<Gray, Byte> cannyEdges = gray.Canny(cannyThreshold, cannyThresholdLinking);
+        //            cannyEdges = cannyEdges.Dilate(dilate);
+
+        //            using (MemStorage storage = new MemStorage()) //allocate storage for contour approximation
+        //                for (Contour<Point> contours = cannyEdges.FindContours(Emgu.CV.CvEnum.CHAIN_APPROX_METHOD.CV_CHAIN_APPROX_SIMPLE,
+        //                      Emgu.CV.CvEnum.RETR_TYPE.CV_RETR_LIST, storage); contours != null; contours = contours.HNext)
+        //                {
+        //                    Contour<Point> currentContour = contours.ApproxPoly(contours.Perimeter * 0.02, storage);
+
+        //                    if (currentContour.Area > contour_area)
+        //                    {
+        //                        if (currentContour.Total >= 4) //The contour has 4 vertices.
+        //                        {
+        //                            Point[] pts = currentContour.ToArray();
+        //                            LineSegment2D[] edges = PointCollection.PolyLine(pts, true);
+
+        //                            if (img.GetSubRect(currentContour.BoundingRectangle).Width > minW &&
+        //                                img.GetSubRect(currentContour.BoundingRectangle).Width < maxW &&
+        //                                img.GetSubRect(currentContour.BoundingRectangle).Height > minH &&
+        //                                img.GetSubRect(currentContour.BoundingRectangle).Height < maxH)
+        //                            {
+
+        //                                Image<Bgr, Byte> imgResult = new Image<Bgr, Byte>(currentContour.GetMinAreaRect().MinAreaRect().Height, currentContour.GetMinAreaRect().MinAreaRect().Width);
+        //                                Rectangle rect = new Rectangle();
+        //                                rect.X = currentContour.BoundingRectangle.X;
+        //                                rect.Y = currentContour.BoundingRectangle.Y;
+        //                                rect.Width = currentContour.BoundingRectangle.Width;
+        //                                rect.Height = currentContour.BoundingRectangle.Height;
+        //                                imgResult = img.GetSubRect(rect);
+        //                                img.Draw(rect, new Bgr(Color.Red), 2);
+        //                                img.Save("D:\\rectangulo.jpg");
+
+        //                                return rect;
+        //                            }
+        //                        }
+        //                    }
+        //                }
+        //        }
+        //        catch (Exception e)
+        //        {
+
+        //        }
+        //        return Rectangle.Empty;
+        //    }
+        //}
     }
 }

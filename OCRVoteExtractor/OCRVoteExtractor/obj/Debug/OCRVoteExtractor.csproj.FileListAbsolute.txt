@@ -39,4 +39,6 @@ C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\
 C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Debug\OCRVoteExtractor.Form1.resources
 C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Debug\OCRVoteExtractor.Properties.Resources.resources
 C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Debug\OCRVoteExtractor.csproj.GenerateResource.Cache
-C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Debug\DetectarCuadros.Form1.resources
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\bin\Debug\Emgu.CV.World.dll
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\bin\Debug\Emgu.CV.World.xml
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Debug\OCRVoteExtractor.csprojResolveAssemblyReference.cache

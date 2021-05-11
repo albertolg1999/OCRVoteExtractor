@@ -144,6 +144,33 @@ namespace OCRVoteExtractor
             MessageBox.Show(this.Handle.ToString());
         }
 
+        private void origenesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            oGdPictureImaging.TwainSelectSource(this.Handle);
+            MessageBox.Show(this.Handle.ToString());
+        }
+
+        private void abrirOrigenSeleccionadoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!(oGdPictureImaging.TwainOpenDefaultSource(this.Handle)))
+            {
+
+                MessageBox.Show("Can't open default source !");
+            }
+        }
+
+        private void sourceSetupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (oGdPictureImaging.TwainGetState() < TwainStatus.TWAIN_SOURCE_OPEN)
+            {
+                MessageBox.Show("You need to open a source first !");
+            }
+            else
+            {
+                oGdPictureImaging.TwainShowSetupDialogSource(this.Handle);
+            }
+        }
+
         //    public static Rectangle DetectSquare(Image<Bgr, Byte> img, int dilate, int contour_area, int maxW, int minW, int maxH, int minH)
         //    {
         //        double cannyThreshold = 100.0;

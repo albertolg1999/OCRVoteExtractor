@@ -134,7 +134,7 @@ namespace OCRVoteExtractor
             Rectangle r = new Rectangle(minLoc, template.Size);
             CvInvoke.Rectangle(source, r, new MCvScalar(255, 0, 0), 3);
             pictureBox1.Image = source.ToBitmap();
-            pictureBox1.Image.Save("C:\\Users\\alain\\Documents\\Proyecto Fin Grado\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada.jpg");
+            pictureBox1.Image.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada.jpg");
 
         }
 
@@ -169,6 +169,16 @@ namespace OCRVoteExtractor
             {
                 oGdPictureImaging.TwainShowSetupDialogSource(this.Handle);
             }
+        }
+
+        private void cerrarOrigenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            oGdPictureImaging.TwainCloseSource();
+        }
+
+        private void cerrarAdministradorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            oGdPictureImaging.TwainCloseSourceManager(this.Handle);
         }
 
         //    public static Rectangle DetectSquare(Image<Bgr, Byte> img, int dilate, int contour_area, int maxW, int minW, int maxH, int minH)

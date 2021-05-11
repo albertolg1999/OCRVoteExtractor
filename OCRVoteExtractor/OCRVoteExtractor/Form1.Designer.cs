@@ -37,13 +37,16 @@
             this.origenesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.abrirOrigenSeleccionadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sourceSetupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cerrarOrigenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cerrarAdministradorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnScanners
             // 
-            this.btnScanners.Location = new System.Drawing.Point(120, 169);
+            this.btnScanners.Location = new System.Drawing.Point(11, 53);
             this.btnScanners.Margin = new System.Windows.Forms.Padding(2);
             this.btnScanners.Name = "btnScanners";
             this.btnScanners.Size = new System.Drawing.Size(99, 42);
@@ -54,16 +57,18 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(251, 102);
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.pictureBox1.Location = new System.Drawing.Point(359, 53);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(481, 299);
+            this.pictureBox1.Size = new System.Drawing.Size(392, 385);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(69, 111);
+            this.button2.Enabled = false;
+            this.button2.Location = new System.Drawing.Point(11, 119);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(99, 42);
@@ -74,12 +79,13 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(69, 50);
+            this.button1.Enabled = false;
+            this.button1.Location = new System.Drawing.Point(11, 181);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(99, 42);
             this.button1.TabIndex = 5;
-            this.button1.Text = "button1";
+            this.button1.Text = "Cuadros";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -98,7 +104,9 @@
             this.scannerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.origenesToolStripMenuItem,
             this.abrirOrigenSeleccionadoToolStripMenuItem,
-            this.sourceSetupToolStripMenuItem});
+            this.sourceSetupToolStripMenuItem,
+            this.cerrarOrigenToolStripMenuItem,
+            this.cerrarAdministradorToolStripMenuItem});
             this.scannerToolStripMenuItem.Name = "scannerToolStripMenuItem";
             this.scannerToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.scannerToolStripMenuItem.Text = "Scanner";
@@ -106,29 +114,51 @@
             // origenesToolStripMenuItem
             // 
             this.origenesToolStripMenuItem.Name = "origenesToolStripMenuItem";
-            this.origenesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.origenesToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
             this.origenesToolStripMenuItem.Text = "Origenes";
             this.origenesToolStripMenuItem.Click += new System.EventHandler(this.origenesToolStripMenuItem_Click);
             // 
             // abrirOrigenSeleccionadoToolStripMenuItem
             // 
             this.abrirOrigenSeleccionadoToolStripMenuItem.Name = "abrirOrigenSeleccionadoToolStripMenuItem";
-            this.abrirOrigenSeleccionadoToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.abrirOrigenSeleccionadoToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
             this.abrirOrigenSeleccionadoToolStripMenuItem.Text = "Abrir Origen Seleccionado";
             this.abrirOrigenSeleccionadoToolStripMenuItem.Click += new System.EventHandler(this.abrirOrigenSeleccionadoToolStripMenuItem_Click);
             // 
             // sourceSetupToolStripMenuItem
             // 
             this.sourceSetupToolStripMenuItem.Name = "sourceSetupToolStripMenuItem";
-            this.sourceSetupToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.sourceSetupToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
             this.sourceSetupToolStripMenuItem.Text = "Source Setup";
             this.sourceSetupToolStripMenuItem.Click += new System.EventHandler(this.sourceSetupToolStripMenuItem_Click);
+            // 
+            // cerrarOrigenToolStripMenuItem
+            // 
+            this.cerrarOrigenToolStripMenuItem.Name = "cerrarOrigenToolStripMenuItem";
+            this.cerrarOrigenToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.cerrarOrigenToolStripMenuItem.Text = "Cerrar Origen";
+            this.cerrarOrigenToolStripMenuItem.Click += new System.EventHandler(this.cerrarOrigenToolStripMenuItem_Click);
+            // 
+            // cerrarAdministradorToolStripMenuItem
+            // 
+            this.cerrarAdministradorToolStripMenuItem.Name = "cerrarAdministradorToolStripMenuItem";
+            this.cerrarAdministradorToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.cerrarAdministradorToolStripMenuItem.Text = "Cerrar Administrador de Fuentes";
+            this.cerrarAdministradorToolStripMenuItem.Click += new System.EventHandler(this.cerrarAdministradorToolStripMenuItem_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(187, 64);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(110, 254);
+            this.panel1.TabIndex = 10;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnScanners);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button2);
@@ -156,6 +186,9 @@
         private System.Windows.Forms.ToolStripMenuItem origenesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem abrirOrigenSeleccionadoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sourceSetupToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cerrarOrigenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cerrarAdministradorToolStripMenuItem;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

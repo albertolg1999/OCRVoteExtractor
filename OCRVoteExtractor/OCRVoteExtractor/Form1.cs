@@ -42,8 +42,8 @@ namespace OCRVoteExtractor
         {
             // detectar si hay cuadrados
 
-            Image<Bgr, Byte> img = new Image<Bgr, Byte>(imagen);
-            System.IO.FileInfo f = new System.IO.FileInfo(imagen);
+            Image<Bgr, Byte> img = new Image<Bgr, byte>((Bitmap)pictureBox1.Image);
+            //System.IO.FileInfo f = new System.IO.FileInfo(imagen);
             UMat uimage = new UMat();
             CvInvoke.CvtColor(img, uimage, ColorConversion.Bgr2Gray);
             UMat pyrDown = new UMat();
@@ -60,13 +60,13 @@ namespace OCRVoteExtractor
             CvInvoke.Erode(uimage, uimage, element, new Point(-1, -1), 1, BorderType.Default, default(MCvScalar));
 
             //CvInvoke.Dilate(uimage, uimage, element, new Point(-1, -1),2, BorderType.Reflect, default(MCvScalar));
-            uimage.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\" + f.Name + "_erode.png");
+            uimage.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada_erode.png");
             // CvInvoke.PyrDown(uimage, pyrDown);
             // CvInvoke.PyrUp(pyrDown, uimage);
             //CvInvoke.Threshold(uimage, uimage, 50, 255, ThresholdType.Binary);
 
             CvInvoke.Canny(uimage, cannyEdges, 100, 250);
-            cannyEdges.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\" + f.Name + "_canny.png");
+            cannyEdges.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada_canny.png");
 
             VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint();
             CvInvoke.FindContours(cannyEdges, contours, null, RetrType.List, ChainApproxMethod.ChainApproxSimple);
@@ -97,14 +97,16 @@ namespace OCRVoteExtractor
                 }
 
             }
-            img.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\" + f.Name + "_rectangulo.jpg");
-            MessageBox.Show("Numero de cuadrados imagen " + f.Name + " es de " + a);
+            pictureBox1.Image = img.ToBitmap();
+            img.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada_rectangulo.jpg");
+            MessageBox.Show("Numero de cuadrados imagen es de " + a);
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             detectTemplate();
+            button1.Enabled = true;
             //detectMultiTemplate();
         }
 

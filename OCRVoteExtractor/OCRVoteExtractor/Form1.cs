@@ -22,6 +22,7 @@ namespace OCRVoteExtractor
         public GdPictureImaging oGdPictureImaging = new GdPictureImaging();
         public Form1()
         {
+            this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
         }
 

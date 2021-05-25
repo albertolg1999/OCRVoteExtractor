@@ -49,9 +49,9 @@ namespace OCRVoteExtractor.clases
             set { alto = value; }
         }
 
-        private String ancho;
+        private int ancho;
 
-        public String Ancho
+        public int Ancho
         {
             get { return ancho; }
             set { ancho = value; }

@@ -15,36 +15,78 @@ using Emgu.Util;
 using GdPicture10;
 using Emgu.CV;
 using OCRVoteExtractor.clases;
+using System.Xml;
 
 namespace OCRVoteExtractor
 {
     public partial class Form1 : Form
     {
+        List<partido> partidosPapeleta;
+        int xT, yT;
         public GdPictureImaging oGdPictureImaging = new GdPictureImaging();
         public Form1()
         {
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
-            List<partido> partidosPapeleta;
+            partidosPapeleta = new List<partido>();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Image<Bgr, Byte> img = new Image<Bgr, Byte>("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada.jpg");
             // Image<Bgr, Byte> img = new Image<Bgr, Byte>("D:\\testimages\\2372884_41620516.tif");
             //Rectangle r = DetectSquare(img, 5, 3600, 70, 60, 70, 60);+
             //string[] ficheros = System.IO.Directory.GetFiles("C:\\Users\\disen\\Downloads\\cuadros\\cuadros\\imagenes");
             //    RecogSchema esquema = LeerXml();
             //    //DateTime fechaVoto = DateTime.Now;
             //foreach (string f in ficheros)            {
-            string f = "C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\image1.jpg";
-            pintaCuadrados(f);
+            //string f = "C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\image1.jpg";
+            cargarPartidos();
+            buscar(img);
+            //pintaCuadrados(f);
             //}
         }
 
 
         public void cargarPartidos()
         {
+            XmlDocument xDoc;
+            xDoc = new XmlDocument();
+            partido p;
+            xDoc.Load("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\xml\\xml1.xml");
+            XmlNodeList papeleta = xDoc.GetElementsByTagName("papeleta");
+            XmlNodeList cuadrado = ((XmlElement)papeleta[0]).GetElementsByTagName("cuadrado");
+            foreach (XmlElement cuadro in cuadrado)
+            {
+                p = new partido();
+                XmlNodeList nombre = cuadro.GetElementsByTagName("nombrePartido");
+                p.Nombre = ((XmlElement)nombre[0]).InnerText.ToString();
+                XmlNodeList representante = cuadro.GetElementsByTagName("representante");
+                p.Representante = ((XmlElement)representante[0]).InnerText.ToString();
+                XmlNodeList distX = cuadro.GetElementsByTagName("distCuadroX");
+                p.DistX = int.Parse(((XmlElement)distX[0]).InnerText.ToString());
+                XmlNodeList distY = cuadro.GetElementsByTagName("distCuadroY");
+                p.DistY = int.Parse(((XmlElement)distY[0]).InnerText.ToString());
+                XmlNodeList ancho = cuadro.GetElementsByTagName("anchoCuadro");
+                p.Ancho = int.Parse(((XmlElement)ancho[0]).InnerText.ToString());
+                XmlNodeList alto = cuadro.GetElementsByTagName("altoCuadro");
+                p.Alto = int.Parse(((XmlElement)alto[0]).InnerText.ToString());
+                p.Marcado = false;
+                this.partidosPapeleta.Add(p);
+                //MessageBox.Show(p.Nombre);
+            }
+        }
 
+        public void buscar(Image<Bgr, Byte> img)
+        {
+            for(int i = 0; i < this.partidosPapeleta.Count(); i++)
+            {
+                Rectangle rect = new Rectangle(this.xT+this.partidosPapeleta[i].DistX, this.yT+this.partidosPapeleta[i].DistY, this.partidosPapeleta[i].Ancho, this.partidosPapeleta[i].Alto);
+               
+                    img.Draw(rect, new Bgr(Color.Red), 2);
+            }
+            pictureBox1.Image = img.ToBitmap();
+           
         }
 
         public void pintaCuadrados(string imagen)
@@ -143,6 +185,9 @@ namespace OCRVoteExtractor
 
             CvInvoke.MinMaxLoc(imgout, ref minVal, ref maxVal, ref minLoc, ref maxLoc);
             Rectangle r = new Rectangle(minLoc, template.Size);
+            this.xT = minLoc.X;
+            this.yT = minLoc.Y;
+            MessageBox.Show(xT.ToString() + " " + yT.ToString());
             CvInvoke.Rectangle(source, r, new MCvScalar(255, 0, 0), 3);
             pictureBox1.Image = source.ToBitmap();
             pictureBox1.Image.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada.jpg");

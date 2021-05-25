@@ -44,6 +44,11 @@ namespace OCRVoteExtractor
             cargarPartidos();
             //pintaCuadrados();
             buscar(img);
+
+            for(int i = 0; i < this.partidosPapeleta.Count; i++)
+            {
+                //MessageBox.Show(this.partidosPapeleta[i].Nombre + ", marcado: " + this.partidosPapeleta[i].Marcado);
+            }
             //pintaCuadrados(f);
             //}
         }
@@ -78,7 +83,7 @@ namespace OCRVoteExtractor
             }
         }
 
-        public void pintarCuadros(Rectangle r)
+        public void pintarCuadros(Rectangle r,int k)
         {
             // detectar si hay cuadrados
 
@@ -110,9 +115,10 @@ namespace OCRVoteExtractor
 
             VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint();
             CvInvoke.FindContours(cannyEdges, contours, null, RetrType.List, ChainApproxMethod.ChainApproxSimple);
-            int count = contours.Size;
-
-            for (int i = 0; i < count; i++)
+            double maxArea = 0;
+            Rectangle rect = Rectangle.Empty;
+            int blackQty = 0;
+            for (int i = 0; i < contours.Size; i++)
             {
                 VectorOfPoint contour = contours[i];
 
@@ -124,38 +130,50 @@ namespace OCRVoteExtractor
                 double area = CvInvoke.ContourArea(approxContour, false);
                 // MessageBox.Show(area.ToString());
 
-                if (approxContour.Size == 4)
+                if (approxContour.Size == 4 && area > maxArea)
                 {
-                    Rectangle rect = CvInvoke.BoundingRectangle(approxContour);
-
-                    img.Draw(rect, new Bgr(Color.Red), 2);
-                    pictureBox1.Image = img.ToBitmap();
-                    img.ROI = new Rectangle();
-                    pictureBox1.Image = img.ToBitmap();
+                    maxArea = area;
+                    rect = CvInvoke.BoundingRectangle(approxContour);
+                    using (UMat cuadrado = new UMat(uimage, rect))
+                    {
+                        blackQty = CvInvoke.CountNonZero(cuadrado);
+                        if (blackQty < 6500)
+                        {
+                            MessageBox.Show(this.partidosPapeleta[k].Nombre + " " + blackQty.ToString());
+                        }
+                    }
                 }
             }
 
-            //MessageBox.Show(count.ToString());
+            if (!rect.IsEmpty)
+            img.Draw(rect, new Bgr(Color.Red), 2);
             
+            img.ROI = new Rectangle();
+
+            img.Draw(r, new Bgr(Color.Blue), 2);
+
+            pictureBox1.Image = img.ToBitmap();
+
+            //MessageBox.Show(count.ToString());
+
             //MessageBox.Show("a");
         }
         public void buscar(Image<Bgr, Byte> img)
         {
-            List<Rectangle> rectangulos=new List<Rectangle>();
-            for(int i = 0; i < this.partidosPapeleta.Count(); i++)
+            List<Rectangle> rectangulos = new List<Rectangle>();
+            for (int i = 0; i < this.partidosPapeleta.Count(); i++)
             {
-                Rectangle rect = new Rectangle(this.xT+this.partidosPapeleta[i].DistX, this.yT+this.partidosPapeleta[i].DistY, this.partidosPapeleta[i].Ancho, this.partidosPapeleta[i].Alto);
+                Rectangle rect = new Rectangle(this.xT + this.partidosPapeleta[i].DistX, this.yT + this.partidosPapeleta[i].DistY, this.partidosPapeleta[i].Ancho, this.partidosPapeleta[i].Alto);
                 rectangulos.Add(rect);
-                img.Draw(rect, new Bgr(Color.Red), 2);
-                
-                
+
+
             }
 
             pictureBox1.Image = img.ToBitmap();
-            
+
             for (int k = 0; k < rectangulos.Count; k++)
             {
-                pintarCuadros(rectangulos[k]);
+                pintarCuadros(rectangulos[k],k);
             }
 
         }
@@ -249,8 +267,7 @@ namespace OCRVoteExtractor
             Mat imgout = new Mat();
 
             CvInvoke.MatchTemplate(source, template, imgout, Emgu.CV.CvEnum.TemplateMatchingType.Sqdiff);
-
-            MessageBox.Show(imgout.ToString());
+            
             double minVal = 0.0;
             double maxVal = 0.0;
             Point minLoc = new Point();
@@ -260,7 +277,6 @@ namespace OCRVoteExtractor
             Rectangle r = new Rectangle(minLoc, template.Size);
             this.xT = minLoc.X;
             this.yT = minLoc.Y;
-            MessageBox.Show(xT.ToString() + " " + yT.ToString());
             CvInvoke.Rectangle(source, r, new MCvScalar(255, 0, 0), 3);
             pictureBox1.Image = source.ToBitmap();
             pictureBox1.Image.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada.jpg");

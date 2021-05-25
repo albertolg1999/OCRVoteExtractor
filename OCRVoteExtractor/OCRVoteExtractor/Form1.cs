@@ -14,6 +14,7 @@ using Emgu.CV.Util;
 using Emgu.Util;
 using GdPicture10;
 using Emgu.CV;
+using OCRVoteExtractor.clases;
 
 namespace OCRVoteExtractor
 {
@@ -24,6 +25,7 @@ namespace OCRVoteExtractor
         {
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
+            List<partido> partidosPapeleta;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -37,6 +39,12 @@ namespace OCRVoteExtractor
             string f = "C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\image1.jpg";
             pintaCuadrados(f);
             //}
+        }
+
+
+        public void cargarPartidos()
+        {
+
         }
 
         public void pintaCuadrados(string imagen)

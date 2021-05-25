@@ -134,7 +134,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.panel2.BackgroundImage = global::OCRVoteExtractor.Properties.Resources.unnamed;
+            this.panel2.BackgroundImage = global::OCRVoteExtractor.Properties.Resources.bgcontrol1;
             this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel2.Controls.Add(this.chkRemoveBlankPages);
             this.panel2.Controls.Add(this.chkRemoveDots);

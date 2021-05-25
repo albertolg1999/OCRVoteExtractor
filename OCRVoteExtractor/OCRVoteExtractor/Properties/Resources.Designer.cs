@@ -93,6 +93,16 @@ namespace OCRVoteExtractor.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bgcontrol1 {
+            get {
+                object obj = ResourceManager.GetObject("bgcontrol1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap change_pass {
             get {
                 object obj = ResourceManager.GetObject("change-pass", resourceCulture);

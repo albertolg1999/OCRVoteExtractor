@@ -85,81 +85,81 @@
 	<cuadrado>
 		<nombrePartido>Partido Fenicio</nombrePartido>
 		<representante>Pigmalión</representante>
-		<distCuadroX>2951</distCuadroX>
+		<distCuadroX>2931</distCuadroX>
 		<distCuadroY>626</distCuadroY>
-		<anchoCuadro>190</anchoCuadro>
+		<anchoCuadro>210</anchoCuadro>
 		<altoCuadro>150</altoCuadro>
 	</cuadrado>
 	<cuadrado>
 		<nombrePartido>Partido Griego</nombrePartido>
 		<representante>Pericles</representante>
-		<distCuadroX>2951</distCuadroX>
+		<distCuadroX>2931</distCuadroX>
 		<distCuadroY>786</distCuadroY>
-		<anchoCuadro>190</anchoCuadro>
+		<anchoCuadro>210</anchoCuadro>
 		<altoCuadro>150</altoCuadro>
 	</cuadrado>
 	<cuadrado>
 		<nombrePartido>Partido Romano</nombrePartido>
 		<representante>Tiberio</representante>
-		<distCuadroX>2951</distCuadroX>
+		<distCuadroX>2931</distCuadroX>
 		<distCuadroY>946</distCuadroY>
-		<anchoCuadro>190</anchoCuadro>
+		<anchoCuadro>210</anchoCuadro>
 		<altoCuadro>150</altoCuadro>
 	</cuadrado>
 	<cuadrado>
 		<nombrePartido>Partido Persa</nombrePartido>
 		<representante>Jerjes</representante>
-		<distCuadroX>2951</distCuadroX>
+		<distCuadroX>2931</distCuadroX>
 		<distCuadroY>1096</distCuadroY>
-		<anchoCuadro>190</anchoCuadro>
+		<anchoCuadro>210</anchoCuadro>
 		<altoCuadro>150</altoCuadro>
 	</cuadrado>
 	<cuadrado>
 		<nombrePartido>Partido Egipcio</nombrePartido>
 		<representante>Menkaure (Mirecinos)</representante>
-		<distCuadroX>1907</distCuadroX>
-		<distCuadroY>797</distCuadroY>
-		<anchoCuadro>179</anchoCuadro>
-		<altoCuadro>125</altoCuadro>
+		<distCuadroX>2931</distCuadroX>
+		<distCuadroY>1254</distCuadroY>
+		<anchoCuadro>210</anchoCuadro>
+		<altoCuadro>150</altoCuadro>
 	</cuadrado>
 	<cuadrado>
 		<nombrePartido>Partido Maya</nombrePartido>
 		<representante>Zamná</representante>
-		<distCuadroX>1907</distCuadroX>
-		<distCuadroY>901</distCuadroY>
-		<anchoCuadro>179</anchoCuadro>
-		<altoCuadro>125</altoCuadro>
+		<distCuadroX>2931</distCuadroX>
+		<distCuadroY>1416</distCuadroY>
+		<anchoCuadro>210</anchoCuadro>
+		<altoCuadro>150</altoCuadro>
 	</cuadrado>
 	<cuadrado>
 		<nombrePartido>Partido Griego</nombrePartido>
 		<representante>Solón</representante>
-		<distCuadroX>1907</distCuadroX>
-		<distCuadroY>1001</distCuadroY>
-		<anchoCuadro>179</anchoCuadro>
-		<altoCuadro>125</altoCuadro>
+		<distCuadroX>2931</distCuadroX>
+		<distCuadroY>1569</distCuadroY>
+		<anchoCuadro>210</anchoCuadro>
+		<altoCuadro>150</altoCuadro>
 	</cuadrado>
 	<cuadrado>
 		<nombrePartido>Partido Egipcio</nombrePartido>
 		<representante>Jufu (Keops)</representante>
-		<distCuadroX>1907</distCuadroX>
-		<distCuadroY>1107</distCuadroY>
-		<anchoCuadro>179</anchoCuadro>
-		<altoCuadro>125</altoCuadro>
+		<distCuadroX>2931</distCuadroX>
+		<distCuadroY>1732</distCuadroY>
+		<anchoCuadro>210</anchoCuadro>
+		<altoCuadro>150</altoCuadro>
 	</cuadrado>
 	<cuadrado>
 		<nombrePartido>Partido Cartagines</nombrePartido>
 		<representante>Palermo</representante>
-		<distCuadroX>1907</distCuadroX>
-		<distCuadroY>1207</distCuadroY>
-		<anchoCuadro>179</anchoCuadro>
-		<altoCuadro>125</altoCuadro>
+		<distCuadroX>2931</distCuadroX>
+		<distCuadroY>1883</distCuadroY>
+		<anchoCuadro>210</anchoCuadro>
+		<altoCuadro>150</altoCuadro>
 	</cuadrado>
 	<cuadrado>
 		<nombrePartido>Partido Independiente</nombrePartido>
 		<representante>Atlantis</representante>
-		<distCuadroX>1907</distCuadroX>
-		<distCuadroY>1307</distCuadroY>
-		<anchoCuadro>179</anchoCuadro>
-		<altoCuadro>125</altoCuadro>
+		<distCuadroX>2931</distCuadroX>
+		<distCuadroY>2035</distCuadroY>
+		<anchoCuadro>210</anchoCuadro>
+		<altoCuadro>150</altoCuadro>
 	</cuadrado>
 </papeleta>

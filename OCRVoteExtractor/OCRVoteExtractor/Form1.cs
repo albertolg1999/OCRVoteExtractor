@@ -42,6 +42,7 @@ namespace OCRVoteExtractor
             //foreach (string f in ficheros)            {
             //string f = "C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\image1.jpg";
             cargarPartidos();
+            //pintaCuadrados();
             buscar(img);
             //pintaCuadrados(f);
             //}
@@ -77,19 +78,127 @@ namespace OCRVoteExtractor
             }
         }
 
+        public void pintarCuadros(Rectangle r)
+        {
+            // detectar si hay cuadrados
+
+            Image<Bgr, Byte> img = new Image<Bgr, byte>((Bitmap)pictureBox1.Image);
+            //System.IO.FileInfo f = new System.IO.FileInfo(imagen);
+            UMat uimage = new UMat();
+            CvInvoke.CvtColor(img, uimage, ColorConversion.Bgr2Gray);
+            UMat pyrDown = new UMat();
+            UMat cannyEdges = new UMat();
+            // CvInvoke.AdaptiveThreshold(uimage, uimage, 125, AdaptiveThresholdType.MeanC, ThresholdType.Binary, 11, 12);
+            CvInvoke.Threshold(uimage, uimage, 180, 200, ThresholdType.Binary);
+            //CvInvoke.Threshold(uimage, uimage, 127, 256, 0);
+
+
+
+            var element = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(3, 3), new Point(-1, -1));
+
+            //CvInvoke.Dilate(uimage, uimage, element, new Point(-1, -1), 1, BorderType.Isolated, default(MCvScalar));
+            CvInvoke.Erode(uimage, uimage, element, new Point(-1, -1), 1, BorderType.Default, default(MCvScalar));
+
+            //CvInvoke.Dilate(uimage, uimage, element, new Point(-1, -1),2, BorderType.Reflect, default(MCvScalar));
+            uimage.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada_erode.png");
+            // CvInvoke.PyrDown(uimage, pyrDown);
+            // CvInvoke.PyrUp(pyrDown, uimage);
+            //CvInvoke.Threshold(uimage, uimage, 50, 255, ThresholdType.Binary);
+
+            CvInvoke.Canny(uimage, cannyEdges, 100, 250);
+            cannyEdges.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada_canny.png");
+
+            VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint();
+            CvInvoke.FindContours(cannyEdges, contours, null, RetrType.List, ChainApproxMethod.ChainApproxSimple);
+            int count = contours.Size;
+            int a = 0;
+            for (int i = 0; i < count; i++)
+            {
+                VectorOfPoint contour = contours[i];
+               
+                VectorOfPoint approxContour = new VectorOfPoint();
+
+                //nos dice  si es una figura poligonal
+                CvInvoke.ApproxPolyDP(contour, approxContour, CvInvoke.ArcLength(contour, true) * 0.05, true);
+                // Calcula el área de todo el contorno o sección del contorno.
+                double area = CvInvoke.ContourArea(approxContour, false);
+               // MessageBox.Show(area.ToString());
+                
+                if (contour.Size == 4)
+                {
+                    // es un cuadrado
+                    
+                    //Rectangle rect = CvInvoke.BoundingRectangle(approxContour);
+                    Point[] pts = contour.ToArray();
+                   // MessageBox.Show(pts.Length.ToString());
+                    bool correcto = false;
+                    int xmin = r.X;
+                    
+                    int xmax = r.X + r.Width;
+                   // MessageBox.Show(xmin.ToString()+" "+ xmax.ToString());
+                    int ymin = r.Y;
+                    int ymax = r.Y + r.Height;
+                    for (int j = 0; j < pts.Length; j++)
+                    {
+                        if (pts[j].X > xmin && pts[j].X < xmax
+                       && pts[j].Y > ymin && pts[j].Y < ymax)
+                        {
+                            MessageBox.Show("x:" + pts[j].X.ToString() +
+                                "y:" + pts[j].Y.ToString() +
+                                "xmin:" + xmin.ToString() +
+                                "xmax:" + xmax.ToString() +
+                                "ymin:" + ymin.ToString() +
+                                "ymax:" + ymax.ToString());
+                            
+                            correcto = true;
+                        }
+                        else
+                        {
+                            correcto = false;
+                        }
+                        a++;
+                        
+                    }
+                    //MessageBox.Show("cuadrado");
+                    if (correcto)
+                    {
+                        MessageBox.Show("correcto");
+                        //MessageBox.Show("correcto");
+                       // img.Draw(rect, new Bgr(Color.Red), 2);
+                        pictureBox1.Image = img.ToBitmap();
+                    }
+
+
+
+                }
+
+            }
+           
+           // img.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada_rectangulo.jpg");
+           // MessageBox.Show("Numero de cuadrados imagen es de " + a);
+        }
         public void buscar(Image<Bgr, Byte> img)
         {
+            List<Rectangle> rectangulos=new List<Rectangle>();
             for(int i = 0; i < this.partidosPapeleta.Count(); i++)
             {
                 Rectangle rect = new Rectangle(this.xT+this.partidosPapeleta[i].DistX, this.yT+this.partidosPapeleta[i].DistY, this.partidosPapeleta[i].Ancho, this.partidosPapeleta[i].Alto);
-               
-                    img.Draw(rect, new Bgr(Color.Red), 2);
+                rectangulos.Add(rect);
+                img.Draw(rect, new Bgr(Color.Red), 2);
+                
+                
             }
+
             pictureBox1.Image = img.ToBitmap();
-           
+
+            for (int k = 0; k < rectangulos.Count; k++)
+            {
+                pintarCuadros(rectangulos[k]);
+            }
+
         }
 
-        public void pintaCuadrados(string imagen)
+       /* public void pintaCuadrados()
         {
             // detectar si hay cuadrados
 
@@ -135,13 +244,15 @@ namespace OCRVoteExtractor
                 if (approxContour.Size >= 4)
                 {
                     // es un cuadrado
-
+                    
                     Rectangle rect = CvInvoke.BoundingRectangle(approxContour);
                     if (rect.Width > (img.Width * 0.02) && rect.Width < (img.Width * 0.06)
                         && rect.Height > (img.Height * 0.04) && rect.Height < (img.Height * 0.07))
                     {
                         a++;
+                        MessageBox.Show(approxContour.Size.ToString());
                         img.Draw(rect, new Bgr(Color.Red), 2);
+                        pictureBox1.Image = img.ToBitmap();
                     }
 
 
@@ -152,7 +263,7 @@ namespace OCRVoteExtractor
             img.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada_rectangulo.jpg");
             MessageBox.Show("Numero de cuadrados imagen es de " + a);
 
-        }
+        }*/
 
         private void button2_Click(object sender, EventArgs e)
         {

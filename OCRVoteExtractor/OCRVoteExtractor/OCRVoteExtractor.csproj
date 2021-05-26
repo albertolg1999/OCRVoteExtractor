@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="clases\Papeleta.cs" />
     <Compile Include="clases\partido.cs" />
+    <Compile Include="clases\Rutas.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

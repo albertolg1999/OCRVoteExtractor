@@ -44,6 +44,7 @@
             this.btnBuscarCuadros = new System.Windows.Forms.Button();
             this.tsmtSalir = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnTerminar = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -81,35 +82,35 @@
             // origenesToolStripMenuItem
             // 
             this.origenesToolStripMenuItem.Name = "origenesToolStripMenuItem";
-            this.origenesToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.origenesToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
             this.origenesToolStripMenuItem.Text = "Origenes";
             this.origenesToolStripMenuItem.Click += new System.EventHandler(this.origenesToolStripMenuItem_Click);
             // 
             // abrirOrigenSeleccionadoToolStripMenuItem
             // 
             this.abrirOrigenSeleccionadoToolStripMenuItem.Name = "abrirOrigenSeleccionadoToolStripMenuItem";
-            this.abrirOrigenSeleccionadoToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.abrirOrigenSeleccionadoToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
             this.abrirOrigenSeleccionadoToolStripMenuItem.Text = "Abrir Origen Seleccionado";
             this.abrirOrigenSeleccionadoToolStripMenuItem.Click += new System.EventHandler(this.abrirOrigenSeleccionadoToolStripMenuItem_Click);
             // 
             // sourceSetupToolStripMenuItem
             // 
             this.sourceSetupToolStripMenuItem.Name = "sourceSetupToolStripMenuItem";
-            this.sourceSetupToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.sourceSetupToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
             this.sourceSetupToolStripMenuItem.Text = "Source Setup";
             this.sourceSetupToolStripMenuItem.Click += new System.EventHandler(this.sourceSetupToolStripMenuItem_Click);
             // 
             // cerrarOrigenToolStripMenuItem
             // 
             this.cerrarOrigenToolStripMenuItem.Name = "cerrarOrigenToolStripMenuItem";
-            this.cerrarOrigenToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.cerrarOrigenToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
             this.cerrarOrigenToolStripMenuItem.Text = "Cerrar Origen";
             this.cerrarOrigenToolStripMenuItem.Click += new System.EventHandler(this.cerrarOrigenToolStripMenuItem_Click);
             // 
             // cerrarAdministradorToolStripMenuItem
             // 
             this.cerrarAdministradorToolStripMenuItem.Name = "cerrarAdministradorToolStripMenuItem";
-            this.cerrarAdministradorToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.cerrarAdministradorToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
             this.cerrarAdministradorToolStripMenuItem.Text = "Cerrar Administrador de Fuentes";
             this.cerrarAdministradorToolStripMenuItem.Click += new System.EventHandler(this.cerrarAdministradorToolStripMenuItem_Click);
             // 
@@ -118,6 +119,7 @@
             this.panel2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.panel2.BackgroundImage = global::OCRVoteExtractor.Properties.Resources.bgcontrol1;
             this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel2.Controls.Add(this.btnTerminar);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.listBox1);
             this.panel2.Controls.Add(this.panel1);
@@ -182,7 +184,7 @@
             this.btnTemplate.Enabled = false;
             this.btnTemplate.FlatAppearance.BorderSize = 0;
             this.btnTemplate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTemplate.Location = new System.Drawing.Point(416, 435);
+            this.btnTemplate.Location = new System.Drawing.Point(297, 435);
             this.btnTemplate.Margin = new System.Windows.Forms.Padding(2);
             this.btnTemplate.Name = "btnTemplate";
             this.btnTemplate.Size = new System.Drawing.Size(181, 76);
@@ -216,6 +218,7 @@
             this.tsmtSalir.Image = global::OCRVoteExtractor.Properties.Resources._340_3402060_marketing_clipart_succession_planning_iconos_de_salir_png;
             this.tsmtSalir.Name = "tsmtSalir";
             this.tsmtSalir.Size = new System.Drawing.Size(28, 20);
+            this.tsmtSalir.Click += new System.EventHandler(this.tsmtSalir_Click);
             // 
             // label1
             // 
@@ -228,6 +231,21 @@
             this.label1.Size = new System.Drawing.Size(104, 25);
             this.label1.TabIndex = 16;
             this.label1.Text = "Papeletas";
+            // 
+            // btnTerminar
+            // 
+            this.btnTerminar.BackColor = System.Drawing.Color.Transparent;
+            this.btnTerminar.BackgroundImage = global::OCRVoteExtractor.Properties.Resources._5895d3becba9841eabab6082;
+            this.btnTerminar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnTerminar.FlatAppearance.BorderSize = 0;
+            this.btnTerminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTerminar.Location = new System.Drawing.Point(529, 436);
+            this.btnTerminar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnTerminar.Name = "btnTerminar";
+            this.btnTerminar.Size = new System.Drawing.Size(181, 76);
+            this.btnTerminar.TabIndex = 17;
+            this.btnTerminar.Text = "Terminar Votación";
+            this.btnTerminar.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
@@ -267,6 +285,7 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ToolStripMenuItem tsmtSalir;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnTerminar;
     }
 }
 

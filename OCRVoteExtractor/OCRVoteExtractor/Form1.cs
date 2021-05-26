@@ -22,6 +22,7 @@ namespace OCRVoteExtractor
 {
     public partial class Form1 : Form
     {
+        Rutas r;
         List<Papeleta> Papeletas;
         Papeleta papeleta;
         String ruta_papeletas = "C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\papeletas";
@@ -31,6 +32,8 @@ namespace OCRVoteExtractor
         {
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
+            r = new Rutas();
+            
             //partidosPapeleta = new List<partido>();
         }
 
@@ -138,16 +141,18 @@ namespace OCRVoteExtractor
                 double area = CvInvoke.ContourArea(approxContour, false);
                 // MessageBox.Show(area.ToString());
 
-                if (approxContour.Size == 4 && area > maxArea)
+                if (approxContour.Size >= 4 && area < 9600 && area>maxArea)
                 {
+                    MessageBox.Show(area.ToString());
                     maxArea = area;
                     rect = CvInvoke.BoundingRectangle(approxContour);
                     using (UMat cuadrado = new UMat(uimage, rect))
                     {
                         blackQty = CvInvoke.CountNonZero(cuadrado);
-                        if (blackQty < 6100)
+                        //MessageBox.Show(blackQty.ToString());
+                        if (blackQty < 5700)
                         {
-                            MessageBox.Show(blackQty.ToString());
+                           // MessageBox.Show(blackQty.ToString());
                             p.partidosPapeleta[k].Marcado = true;
                         }
                     }
@@ -186,7 +191,7 @@ namespace OCRVoteExtractor
                p=pintarCuadros(rectangulos[k],k,p);
             }
             img=new Image<Bgr, byte>((Bitmap)pictureBox1.Image);
-            img.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada_deteccion_votos.png");
+            img.Save(r.ruta_temporales+"\\guardada_deteccion_votos.png");
 
         }
 
@@ -259,12 +264,11 @@ namespace OCRVoteExtractor
 
         private void button2_Click(object sender, EventArgs e)
         {
-            detectTemplate();
-            btnBuscarCuadros.Enabled = true;
+            
             //detectMultiTemplate();
         }
 
-        public void detectTemplate()
+        public  void detectTemplate()
         {
             try
             {
@@ -309,25 +313,43 @@ namespace OCRVoteExtractor
 
         private void btnScanners_Click(object sender, EventArgs e)
         {
-            Papeletas = new List<Papeleta>();
-            listBox1.Items.Clear();
-            foreach(String folder in Directory.GetFiles(ruta_papeletas)){
-                listBox1.Items.Add(Path.GetFileName(folder));
-                papeleta = new Papeleta(ruta_papeletas + "\\" + Path.GetFileName(folder));
-                papeleta.XML_file = "C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\xml\\xml1.xml";
-                papeleta.cargarPartidos();
-                Papeletas.Add(papeleta);
-            }
-            
-            listBox1.SelectedIndex=0;
+            try {
+                Papeletas = new List<Papeleta>();
+                listBox1.Items.Clear();
+                foreach (String folder in Directory.GetFiles(ruta_papeletas))
+                {
+                    listBox1.Items.Add(Path.GetFileName(folder));
+                    papeleta = new Papeleta(this.r.ruta_papeletas + "\\" + Path.GetFileName(folder));
+                    //papeleta = new Papeleta(ruta_papeletas + "\\" + Path.GetFileName(folder));
+                    papeleta.XML_file = "C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\xml\\xml1.xml";
+                    papeleta.cargarPartidos();
+                    Papeletas.Add(papeleta);
+                }
 
-            if (listBox1.SelectedIndex != -1)
-            {
-                btnTemplate.Enabled = true;
+                listBox1.SelectedIndex = 0;
+
+                if (listBox1.SelectedIndex != -1)
+                {
+
+                    MessageBox.Show("Empezando el escaneo");
+                    detectTemplate();
+                    btnBuscarCuadros.Enabled = true;
+                    Image<Bgr, Byte> img = new Image<Bgr, Byte>((Bitmap)pictureBox1.Image);
+
+
+                    buscar(img, Papeletas[listBox1.SelectedIndex]);
+
+                    for (int i = 0; i < Papeletas[listBox1.SelectedIndex].partidosPapeleta.Count; i++)
+                    {
+                        MessageBox.Show(Papeletas[listBox1.SelectedIndex].partidosPapeleta[i].Nombre + ", marcado: " + Papeletas[listBox1.SelectedIndex].partidosPapeleta[i].Marcado);
+                    }
+
+                }
             }
-            
- 
-        
+            catch(ArgumentOutOfRangeException aore)
+            {
+                MessageBox.Show("No se encontraron archivos");
+            }
         }
 
         private void origenesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -367,6 +389,13 @@ namespace OCRVoteExtractor
             Image<Bgr, Byte> img = new Image<Bgr, Byte>(ruta_papeletas+"\\"+listBox1.SelectedItem.ToString());
             pictureBox1.Image = img.ToBitmap();
         }
+
+        private void tsmtSalir_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+       
 
         private void cerrarAdministradorToolStripMenuItem_Click(object sender, EventArgs e)
         {

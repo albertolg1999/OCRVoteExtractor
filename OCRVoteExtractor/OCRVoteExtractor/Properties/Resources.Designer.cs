@@ -63,6 +63,16 @@ namespace OCRVoteExtractor.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _340_3402060_marketing_clipart_succession_planning_iconos_de_salir_png {
+            get {
+                object obj = ResourceManager.GetObject("340-3402060_marketing-clipart-succession-planning-iconos-de-salir-png", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _585e4bd7cb11b227491c3397 {
             get {
                 object obj = ResourceManager.GetObject("585e4bd7cb11b227491c3397", resourceCulture);

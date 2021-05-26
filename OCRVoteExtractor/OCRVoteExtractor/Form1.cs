@@ -16,24 +16,29 @@ using GdPicture10;
 using Emgu.CV;
 using OCRVoteExtractor.clases;
 using System.Xml;
+using System.IO;
 
 namespace OCRVoteExtractor
 {
     public partial class Form1 : Form
     {
-        List<partido> partidosPapeleta;
+        List<Papeleta> Papeletas;
+        Papeleta papeleta;
+        String ruta_papeletas = "C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\papeletas";
         int xT, yT;
         public GdPictureImaging oGdPictureImaging = new GdPictureImaging();
         public Form1()
         {
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
-            partidosPapeleta = new List<partido>();
+            //partidosPapeleta = new List<partido>();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Image<Bgr, Byte> img = new Image<Bgr, Byte>("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada.jpg");
+            //Papeleta papeleta = new Papeleta(ruta_papeletas+"\\"+listBox1.SelectedItem.ToString());
+            Image <Bgr, Byte> img = new Image<Bgr, Byte>((Bitmap)pictureBox1.Image);
+           
             // Image<Bgr, Byte> img = new Image<Bgr, Byte>("D:\\testimages\\2372884_41620516.tif");
             //Rectangle r = DetectSquare(img, 5, 3600, 70, 60, 70, 60);+
             //string[] ficheros = System.IO.Directory.GetFiles("C:\\Users\\disen\\Downloads\\cuadros\\cuadros\\imagenes");
@@ -41,13 +46,13 @@ namespace OCRVoteExtractor
             //    //DateTime fechaVoto = DateTime.Now;
             //foreach (string f in ficheros)            {
             //string f = "C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\image1.jpg";
-            cargarPartidos();
+            
             //pintaCuadrados();
-            buscar(img);
+            buscar(img, Papeletas[listBox1.SelectedIndex]);
 
-            for(int i = 0; i < this.partidosPapeleta.Count; i++)
+            for(int i = 0; i < Papeletas[listBox1.SelectedIndex].partidosPapeleta.Count; i++)
             {
-                //MessageBox.Show(this.partidosPapeleta[i].Nombre + ", marcado: " + this.partidosPapeleta[i].Marcado);
+                MessageBox.Show(Papeletas[listBox1.SelectedIndex].partidosPapeleta[i].Nombre + ", marcado: " + Papeletas[listBox1.SelectedIndex].partidosPapeleta[i].Marcado);
             }
             //pintaCuadrados(f);
             //}
@@ -78,12 +83,12 @@ namespace OCRVoteExtractor
                 XmlNodeList alto = cuadro.GetElementsByTagName("altoCuadro");
                 p.Alto = int.Parse(((XmlElement)alto[0]).InnerText.ToString());
                 p.Marcado = false;
-                this.partidosPapeleta.Add(p);
+               // this.partidosPapeleta.Add(p);
                 //MessageBox.Show(p.Nombre);
             }
         }
 
-        public void pintarCuadros(Rectangle r,int k)
+        public Papeleta pintarCuadros(Rectangle r,int k, Papeleta p)
         {
             // detectar si hay cuadrados
 
@@ -114,10 +119,13 @@ namespace OCRVoteExtractor
             cannyEdges.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada_canny.png");
 
             VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint();
+
             CvInvoke.FindContours(cannyEdges, contours, null, RetrType.List, ChainApproxMethod.ChainApproxSimple);
+
             double maxArea = 0;
             Rectangle rect = Rectangle.Empty;
             int blackQty = 0;
+
             for (int i = 0; i < contours.Size; i++)
             {
                 VectorOfPoint contour = contours[i];
@@ -137,9 +145,10 @@ namespace OCRVoteExtractor
                     using (UMat cuadrado = new UMat(uimage, rect))
                     {
                         blackQty = CvInvoke.CountNonZero(cuadrado);
-                        if (blackQty < 6500)
+                        if (blackQty < 6100)
                         {
-                            MessageBox.Show(this.partidosPapeleta[k].Nombre + " " + blackQty.ToString());
+                            MessageBox.Show(blackQty.ToString());
+                            p.partidosPapeleta[k].Marcado = true;
                         }
                     }
                 }
@@ -157,13 +166,14 @@ namespace OCRVoteExtractor
             //MessageBox.Show(count.ToString());
 
             //MessageBox.Show("a");
+            return p;
         }
-        public void buscar(Image<Bgr, Byte> img)
+        public void buscar(Image<Bgr, Byte> img, Papeleta p)
         {
             List<Rectangle> rectangulos = new List<Rectangle>();
-            for (int i = 0; i < this.partidosPapeleta.Count(); i++)
+            for (int i = 0; i < p.partidosPapeleta.Count(); i++)
             {
-                Rectangle rect = new Rectangle(this.xT + this.partidosPapeleta[i].DistX, this.yT + this.partidosPapeleta[i].DistY, this.partidosPapeleta[i].Ancho, this.partidosPapeleta[i].Alto);
+                Rectangle rect = new Rectangle(this.xT + p.partidosPapeleta[i].DistX, this.yT + p.partidosPapeleta[i].DistY, p.partidosPapeleta[i].Ancho, p.partidosPapeleta[i].Alto);
                 rectangulos.Add(rect);
 
 
@@ -173,8 +183,10 @@ namespace OCRVoteExtractor
 
             for (int k = 0; k < rectangulos.Count; k++)
             {
-                pintarCuadros(rectangulos[k],k);
+               p=pintarCuadros(rectangulos[k],k,p);
             }
+            img=new Image<Bgr, byte>((Bitmap)pictureBox1.Image);
+            img.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada_deteccion_votos.png");
 
         }
 
@@ -248,45 +260,74 @@ namespace OCRVoteExtractor
         private void button2_Click(object sender, EventArgs e)
         {
             detectTemplate();
-            button1.Enabled = true;
+            btnBuscarCuadros.Enabled = true;
             //detectMultiTemplate();
         }
 
         public void detectTemplate()
         {
+            try
+            {
 
-            Emgu.CV.Image<Bgr, byte> template = new Emgu.CV.Image<Bgr, byte>("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\logo1.png");
+                Emgu.CV.Image<Bgr, byte> template = new Emgu.CV.Image<Bgr, byte>("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\logo1.png");
 
-            // Image<Bgr, byte> source = new Image<Bgr, byte>("C:\\Users\\alain\\Downloads\\cuadros2\\cuadros\\cuadros\\DetectarCuadros\\imagen\\1556274603WhatsAppImage2019-04-16at13.11.56_forCrop_NoticiaAmpliada.jpg");
+                // Image<Bgr, byte> source = new Image<Bgr, byte>("C:\\Users\\alain\\Downloads\\cuadros2\\cuadros\\cuadros\\DetectarCuadros\\imagen\\1556274603WhatsAppImage2019-04-16at13.11.56_forCrop_NoticiaAmpliada.jpg");
 
-            Emgu.CV.Image<Bgr, byte> source = new Emgu.CV.Image<Bgr, byte>("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\image1.jpg");
-            //Image<Bgr, byte> source = new Image<Bgr, byte>("C:\\Users\\alain\\Downloads\\cuadros2\\cuadros\\cuadros\\DetectarCuadros\\imagen\\coleccion-logos-redes-sociales-populares-circulos_1361-901.jpg");
-            //MessageBox.Show("hola" + template.ToString());
+                Emgu.CV.Image<Bgr, byte> source = new Image<Bgr, Byte>(new Bitmap(pictureBox1.Image));
+                //Image<Bgr, byte> source = new Image<Bgr, byte>("C:\\Users\\alain\\Downloads\\cuadros2\\cuadros\\cuadros\\DetectarCuadros\\imagen\\coleccion-logos-redes-sociales-populares-circulos_1361-901.jpg");
+                //MessageBox.Show("hola" + template.ToString());
 
 
-            Mat imgout = new Mat();
+                Mat imgout = new Mat();
 
-            CvInvoke.MatchTemplate(source, template, imgout, Emgu.CV.CvEnum.TemplateMatchingType.Sqdiff);
-            
-            double minVal = 0.0;
-            double maxVal = 0.0;
-            Point minLoc = new Point();
-            Point maxLoc = new Point();
+                CvInvoke.MatchTemplate(source, template, imgout, Emgu.CV.CvEnum.TemplateMatchingType.Sqdiff);
 
-            CvInvoke.MinMaxLoc(imgout, ref minVal, ref maxVal, ref minLoc, ref maxLoc);
-            Rectangle r = new Rectangle(minLoc, template.Size);
-            this.xT = minLoc.X;
-            this.yT = minLoc.Y;
-            CvInvoke.Rectangle(source, r, new MCvScalar(255, 0, 0), 3);
-            pictureBox1.Image = source.ToBitmap();
-            pictureBox1.Image.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada.jpg");
+                double minVal = 0.0;
+                double maxVal = 0.0;
+                Point minLoc = new Point();
+                Point maxLoc = new Point();
 
-        }
+                CvInvoke.MinMaxLoc(imgout, ref minVal, ref maxVal, ref minLoc, ref maxLoc);
+                Rectangle r = new Rectangle(minLoc, template.Size);
+                this.xT = minLoc.X;
+                this.yT = minLoc.Y;
+                CvInvoke.Rectangle(source, r, new MCvScalar(255, 0, 0), 3);
+                pictureBox1.Image = source.ToBitmap();
+                pictureBox1.Image.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada.jpg");
+
+
+            }
+            catch(IOException io)
+            {
+                MessageBox.Show("Archivo no encontrado");
+            }
+            catch(NullReferenceException nre)
+            {
+                MessageBox.Show("Primero debe haber una imagen cargada en el picture box");
+            }
+      }
 
         private void btnScanners_Click(object sender, EventArgs e)
         {
-            oGdPictureImaging.TwainSelectSource(this.Handle);
-            MessageBox.Show(this.Handle.ToString());
+            Papeletas = new List<Papeleta>();
+            listBox1.Items.Clear();
+            foreach(String folder in Directory.GetFiles(ruta_papeletas)){
+                listBox1.Items.Add(Path.GetFileName(folder));
+                papeleta = new Papeleta(ruta_papeletas + "\\" + Path.GetFileName(folder));
+                papeleta.XML_file = "C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\xml\\xml1.xml";
+                papeleta.cargarPartidos();
+                Papeletas.Add(papeleta);
+            }
+            
+            listBox1.SelectedIndex=0;
+
+            if (listBox1.SelectedIndex != -1)
+            {
+                btnTemplate.Enabled = true;
+            }
+            
+ 
+        
         }
 
         private void origenesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -321,65 +362,17 @@ namespace OCRVoteExtractor
             oGdPictureImaging.TwainCloseSource();
         }
 
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Image<Bgr, Byte> img = new Image<Bgr, Byte>(ruta_papeletas+"\\"+listBox1.SelectedItem.ToString());
+            pictureBox1.Image = img.ToBitmap();
+        }
+
         private void cerrarAdministradorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             oGdPictureImaging.TwainCloseSourceManager(this.Handle);
         }
 
-        //    public static Rectangle DetectSquare(Image<Bgr, Byte> img, int dilate, int contour_area, int maxW, int minW, int maxH, int minH)
-        //    {
-        //        double cannyThreshold = 100.0;
-        //        double cannyThresholdLinking = 200.0;
-
-        //        Convert the image to grayscale and filter out the noise
-        //        Image<Gray, Byte> gray = img.Convert<Gray, Byte>().PyrDown().PyrUp();
-
-        //        try
-        //        {
-        //            Image<Gray, Byte> cannyEdges = gray.Canny(cannyThreshold, cannyThresholdLinking);
-        //            cannyEdges = cannyEdges.Dilate(dilate);
-
-        //            using (MemStorage storage = new MemStorage()) //allocate storage for contour approximation
-        //                for (Contour<Point> contours = cannyEdges.FindContours(Emgu.CV.CvEnum.CHAIN_APPROX_METHOD.CV_CHAIN_APPROX_SIMPLE,
-        //                      Emgu.CV.CvEnum.RETR_TYPE.CV_RETR_LIST, storage); contours != null; contours = contours.HNext)
-        //                {
-        //                    Contour<Point> currentContour = contours.ApproxPoly(contours.Perimeter * 0.02, storage);
-
-        //                    if (currentContour.Area > contour_area)
-        //                    {
-        //                        if (currentContour.Total >= 4) //The contour has 4 vertices.
-        //                        {
-        //                            Point[] pts = currentContour.ToArray();
-        //                            LineSegment2D[] edges = PointCollection.PolyLine(pts, true);
-
-        //                            if (img.GetSubRect(currentContour.BoundingRectangle).Width > minW &&
-        //                                img.GetSubRect(currentContour.BoundingRectangle).Width < maxW &&
-        //                                img.GetSubRect(currentContour.BoundingRectangle).Height > minH &&
-        //                                img.GetSubRect(currentContour.BoundingRectangle).Height < maxH)
-        //                            {
-
-        //                                Image<Bgr, Byte> imgResult = new Image<Bgr, Byte>(currentContour.GetMinAreaRect().MinAreaRect().Height, currentContour.GetMinAreaRect().MinAreaRect().Width);
-        //                                Rectangle rect = new Rectangle();
-        //                                rect.X = currentContour.BoundingRectangle.X;
-        //                                rect.Y = currentContour.BoundingRectangle.Y;
-        //                                rect.Width = currentContour.BoundingRectangle.Width;
-        //                                rect.Height = currentContour.BoundingRectangle.Height;
-        //                                imgResult = img.GetSubRect(rect);
-        //                                img.Draw(rect, new Bgr(Color.Red), 2);
-        //                                img.Save("D:\\rectangulo.jpg");
-
-        //                                return rect;
-        //                            }
-        //                        }
-        //                    }
-        //                }
-        //        }
-        //        catch (Exception e)
-        //        {
-
-        //        }
-        //        return Rectangle.Empty;
-        //    }
-        //}
+       
     }
 }

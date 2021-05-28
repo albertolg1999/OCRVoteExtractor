@@ -35,16 +35,16 @@
             this.sourceSetupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarOrigenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarAdministradorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmtSalir = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnTerminar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.btnScanners = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnTemplate = new System.Windows.Forms.Button();
             this.btnBuscarCuadros = new System.Windows.Forms.Button();
-            this.tsmtSalir = new System.Windows.Forms.ToolStripMenuItem();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnTerminar = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -114,6 +114,16 @@
             this.cerrarAdministradorToolStripMenuItem.Text = "Cerrar Administrador de Fuentes";
             this.cerrarAdministradorToolStripMenuItem.Click += new System.EventHandler(this.cerrarAdministradorToolStripMenuItem_Click);
             // 
+            // tsmtSalir
+            // 
+            this.tsmtSalir.BackColor = System.Drawing.Color.Transparent;
+            this.tsmtSalir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.tsmtSalir.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tsmtSalir.Image = global::OCRVoteExtractor.Properties.Resources._340_3402060_marketing_clipart_succession_planning_iconos_de_salir_png;
+            this.tsmtSalir.Name = "tsmtSalir";
+            this.tsmtSalir.Size = new System.Drawing.Size(28, 20);
+            this.tsmtSalir.Click += new System.EventHandler(this.tsmtSalir_Click);
+            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
@@ -133,13 +143,33 @@
             this.panel2.Size = new System.Drawing.Size(1036, 523);
             this.panel2.TabIndex = 11;
             // 
-            // panel1
+            // btnTerminar
             // 
-            this.panel1.AutoScroll = true;
-            this.panel1.Location = new System.Drawing.Point(32, 31);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(187, 381);
-            this.panel1.TabIndex = 15;
+            this.btnTerminar.BackColor = System.Drawing.Color.Transparent;
+            this.btnTerminar.BackgroundImage = global::OCRVoteExtractor.Properties.Resources._5895d3becba9841eabab6082;
+            this.btnTerminar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnTerminar.FlatAppearance.BorderSize = 0;
+            this.btnTerminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTerminar.Location = new System.Drawing.Point(529, 436);
+            this.btnTerminar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnTerminar.Name = "btnTerminar";
+            this.btnTerminar.Size = new System.Drawing.Size(181, 76);
+            this.btnTerminar.TabIndex = 17;
+            this.btnTerminar.Text = "Terminar Votación";
+            this.btnTerminar.UseVisualStyleBackColor = false;
+            this.btnTerminar.Click += new System.EventHandler(this.btnTerminar_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("MV Boli", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(70, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(104, 25);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "Papeletas";
             // 
             // listBox1
             // 
@@ -149,6 +179,14 @@
             this.listBox1.Size = new System.Drawing.Size(187, 381);
             this.listBox1.TabIndex = 0;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.Location = new System.Drawing.Point(32, 31);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(187, 381);
+            this.panel1.TabIndex = 15;
             // 
             // btnScanners
             // 
@@ -209,43 +247,6 @@
             this.btnBuscarCuadros.Text = "Dectectar Casillas";
             this.btnBuscarCuadros.UseVisualStyleBackColor = false;
             this.btnBuscarCuadros.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // tsmtSalir
-            // 
-            this.tsmtSalir.BackColor = System.Drawing.Color.Transparent;
-            this.tsmtSalir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.tsmtSalir.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tsmtSalir.Image = global::OCRVoteExtractor.Properties.Resources._340_3402060_marketing_clipart_succession_planning_iconos_de_salir_png;
-            this.tsmtSalir.Name = "tsmtSalir";
-            this.tsmtSalir.Size = new System.Drawing.Size(28, 20);
-            this.tsmtSalir.Click += new System.EventHandler(this.tsmtSalir_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("MV Boli", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(70, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(104, 25);
-            this.label1.TabIndex = 16;
-            this.label1.Text = "Papeletas";
-            // 
-            // btnTerminar
-            // 
-            this.btnTerminar.BackColor = System.Drawing.Color.Transparent;
-            this.btnTerminar.BackgroundImage = global::OCRVoteExtractor.Properties.Resources._5895d3becba9841eabab6082;
-            this.btnTerminar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnTerminar.FlatAppearance.BorderSize = 0;
-            this.btnTerminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTerminar.Location = new System.Drawing.Point(529, 436);
-            this.btnTerminar.Margin = new System.Windows.Forms.Padding(2);
-            this.btnTerminar.Name = "btnTerminar";
-            this.btnTerminar.Size = new System.Drawing.Size(181, 76);
-            this.btnTerminar.TabIndex = 17;
-            this.btnTerminar.Text = "Terminar Votación";
-            this.btnTerminar.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 

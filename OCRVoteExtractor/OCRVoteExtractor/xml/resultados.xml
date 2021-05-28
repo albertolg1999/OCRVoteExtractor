@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<resultados>
+  <papeleta nombre="image1.jpg">
+    <representante>Cuauhtemoc</representante>
+  </papeleta>
+  <papeleta nombre="image10.jpg">
+    <representante>Pigmalión</representante>
+  </papeleta>
+  <papeleta nombre="image2.jpg">
+    <representante>Jerjes</representante>
+  </papeleta>
+  <papeleta nombre="image3.jpg">
+    <representante>Pigmalión</representante>
+  </papeleta>
+  <papeleta nombre="image4.jpg">
+    <representante>Jerjes</representante>
+  </papeleta>
+  <papeleta nombre="image5.jpg">
+    <representante>Pigmalión</representante>
+  </papeleta>
+  <papeleta nombre="image6.jpg">
+    <representante>Pigmalión</representante>
+  </papeleta>
+  <papeleta nombre="image7.jpg">
+    <representante>Adibaal</representante>
+    <representante>Alejandro Magno</representante>
+    <representante>Augusto</representante>
+    <representante>Jafre (Kefren)</representante>
+    <representante>Cuauhtemoc</representante>
+    <representante>Aquemenes</representante>
+    <representante>Yupanqui Pachacuti</representante>
+    <representante>Zoser</representante>
+    <representante>Trajano</representante>
+    <representante>Arcadio</representante>
+    <representante>Pigmalión</representante>
+    <representante>Pericles</representante>
+    <representante>Tiberio</representante>
+    <representante>Jerjes</representante>
+    <representante>Menkaure (Mirecinos)</representante>
+    <representante>Zamná</representante>
+    <representante>Solón</representante>
+    <representante>Jufu (Keops)</representante>
+    <representante>Palermo</representante>
+    <representante>Atlantis</representante>
+  </papeleta>
+  <papeleta nombre="image8.jpg">
+    <representante>Augusto</representante>
+    <representante>Jafre (Kefren)</representante>
+    <representante>Yupanqui Pachacuti</representante>
+    <representante>Trajano</representante>
+    <representante>Pigmalión</representante>
+    <representante>Pericles</representante>
+    <representante>Tiberio</representante>
+    <representante>Jerjes</representante>
+    <representante>Menkaure (Mirecinos)</representante>
+    <representante>Zamná</representante>
+  </papeleta>
+  <papeleta nombre="image9.jpg">
+    <representante>Zamná</representante>
+  </papeleta>
+</resultados>

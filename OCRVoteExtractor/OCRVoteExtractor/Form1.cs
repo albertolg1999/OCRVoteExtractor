@@ -17,6 +17,7 @@ using Emgu.CV;
 using OCRVoteExtractor.clases;
 using System.Xml;
 using System.IO;
+using System.Threading;
 
 namespace OCRVoteExtractor
 {
@@ -53,43 +54,43 @@ namespace OCRVoteExtractor
             //pintaCuadrados();
             buscar(img, Papeletas[listBox1.SelectedIndex]);
 
-            for(int i = 0; i < Papeletas[listBox1.SelectedIndex].partidosPapeleta.Count; i++)
-            {
-                MessageBox.Show(Papeletas[listBox1.SelectedIndex].partidosPapeleta[i].Nombre + ", marcado: " + Papeletas[listBox1.SelectedIndex].partidosPapeleta[i].Marcado);
-            }
+            //for(int i = 0; i < Papeletas[listBox1.SelectedIndex].partidosPapeleta.Count; i++)
+            //{
+            //    MessageBox.Show(Papeletas[listBox1.SelectedIndex].partidosPapeleta[i].Nombre + ", marcado: " + Papeletas[listBox1.SelectedIndex].partidosPapeleta[i].Marcado);
+            //}
             //pintaCuadrados(f);
             //}
         }
 
 
-        public void cargarPartidos()
-        {
-            XmlDocument xDoc;
-            xDoc = new XmlDocument();
-            partido p;
-            xDoc.Load("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\xml\\xml1.xml");
-            XmlNodeList papeleta = xDoc.GetElementsByTagName("papeleta");
-            XmlNodeList cuadrado = ((XmlElement)papeleta[0]).GetElementsByTagName("cuadrado");
-            foreach (XmlElement cuadro in cuadrado)
-            {
-                p = new partido();
-                XmlNodeList nombre = cuadro.GetElementsByTagName("nombrePartido");
-                p.Nombre = ((XmlElement)nombre[0]).InnerText.ToString();
-                XmlNodeList representante = cuadro.GetElementsByTagName("representante");
-                p.Representante = ((XmlElement)representante[0]).InnerText.ToString();
-                XmlNodeList distX = cuadro.GetElementsByTagName("distCuadroX");
-                p.DistX = int.Parse(((XmlElement)distX[0]).InnerText.ToString());
-                XmlNodeList distY = cuadro.GetElementsByTagName("distCuadroY");
-                p.DistY = int.Parse(((XmlElement)distY[0]).InnerText.ToString());
-                XmlNodeList ancho = cuadro.GetElementsByTagName("anchoCuadro");
-                p.Ancho = int.Parse(((XmlElement)ancho[0]).InnerText.ToString());
-                XmlNodeList alto = cuadro.GetElementsByTagName("altoCuadro");
-                p.Alto = int.Parse(((XmlElement)alto[0]).InnerText.ToString());
-                p.Marcado = false;
-               // this.partidosPapeleta.Add(p);
-                //MessageBox.Show(p.Nombre);
-            }
-        }
+        //public void cargarPartidos()
+        //{
+        //    XmlDocument xDoc;
+        //    xDoc = new XmlDocument();
+        //    partido p;
+        //    xDoc.Load("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\xml\\xml1.xml");
+        //    XmlNodeList papeleta = xDoc.GetElementsByTagName("papeleta");
+        //    XmlNodeList cuadrado = ((XmlElement)papeleta[0]).GetElementsByTagName("cuadrado");
+        //    foreach (XmlElement cuadro in cuadrado)
+        //    {
+        //        p = new partido();
+        //        XmlNodeList nombre = cuadro.GetElementsByTagName("nombrePartido");
+        //        p.Nombre = ((XmlElement)nombre[0]).InnerText.ToString();
+        //        XmlNodeList representante = cuadro.GetElementsByTagName("representante");
+        //        p.Representante = ((XmlElement)representante[0]).InnerText.ToString();
+        //        XmlNodeList distX = cuadro.GetElementsByTagName("distCuadroX");
+        //        p.DistX = int.Parse(((XmlElement)distX[0]).InnerText.ToString());
+        //        XmlNodeList distY = cuadro.GetElementsByTagName("distCuadroY");
+        //        p.DistY = int.Parse(((XmlElement)distY[0]).InnerText.ToString());
+        //        XmlNodeList ancho = cuadro.GetElementsByTagName("anchoCuadro");
+        //        p.Ancho = int.Parse(((XmlElement)ancho[0]).InnerText.ToString());
+        //        XmlNodeList alto = cuadro.GetElementsByTagName("altoCuadro");
+        //        p.Alto = int.Parse(((XmlElement)alto[0]).InnerText.ToString());
+        //        p.Marcado = false;
+        //       // this.partidosPapeleta.Add(p);
+        //        //MessageBox.Show(p.Nombre);
+        //    }
+        //}
 
         public Papeleta pintarCuadros(Rectangle r,int k, Papeleta p)
         {
@@ -143,16 +144,16 @@ namespace OCRVoteExtractor
 
                 if (approxContour.Size >= 4 && area < 9600 && area>maxArea)
                 {
-                    MessageBox.Show(area.ToString());
+                    //MessageBox.Show(area.ToString());
                     maxArea = area;
                     rect = CvInvoke.BoundingRectangle(approxContour);
                     using (UMat cuadrado = new UMat(uimage, rect))
                     {
                         blackQty = CvInvoke.CountNonZero(cuadrado);
                         //MessageBox.Show(blackQty.ToString());
-                        if (blackQty < 5700)
+                        if (blackQty < 6700&& blackQty>3000)
                         {
-                           // MessageBox.Show(blackQty.ToString());
+                            //MessageBox.Show(blackQty.ToString());
                             p.partidosPapeleta[k].Marcado = true;
                         }
                     }
@@ -191,7 +192,10 @@ namespace OCRVoteExtractor
                p=pintarCuadros(rectangulos[k],k,p);
             }
             img=new Image<Bgr, byte>((Bitmap)pictureBox1.Image);
-            img.Save(r.ruta_temporales+"\\guardada_deteccion_votos.png");
+            img.Save(r.ruta_temporales + "\\resultados_" + listBox1.SelectedItem.ToString());
+
+            img = new Image<Bgr, Byte>(r.ruta_papeletas + "\\" + listBox1.SelectedItem.ToString());
+            pictureBox1.Image = img.ToBitmap();
 
         }
 
@@ -268,8 +272,9 @@ namespace OCRVoteExtractor
             //detectMultiTemplate();
         }
 
-        public  void detectTemplate()
+        private Image<Bgr, byte> detectTemplate()
         {
+            Emgu.CV.Image<Bgr, byte> source=null;
             try
             {
 
@@ -277,7 +282,7 @@ namespace OCRVoteExtractor
 
                 // Image<Bgr, byte> source = new Image<Bgr, byte>("C:\\Users\\alain\\Downloads\\cuadros2\\cuadros\\cuadros\\DetectarCuadros\\imagen\\1556274603WhatsAppImage2019-04-16at13.11.56_forCrop_NoticiaAmpliada.jpg");
 
-                Emgu.CV.Image<Bgr, byte> source = new Image<Bgr, Byte>(new Bitmap(pictureBox1.Image));
+               source= new Image<Bgr, Byte>(new Bitmap(pictureBox1.Image));
                 //Image<Bgr, byte> source = new Image<Bgr, byte>("C:\\Users\\alain\\Downloads\\cuadros2\\cuadros\\cuadros\\DetectarCuadros\\imagen\\coleccion-logos-redes-sociales-populares-circulos_1361-901.jpg");
                 //MessageBox.Show("hola" + template.ToString());
 
@@ -297,8 +302,8 @@ namespace OCRVoteExtractor
                 this.yT = minLoc.Y;
                 CvInvoke.Rectangle(source, r, new MCvScalar(255, 0, 0), 3);
                 pictureBox1.Image = source.ToBitmap();
-                pictureBox1.Image.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada.jpg");
-
+                pictureBox1.Image.Save(this.r.rc_imag+"\\guardada.jpg");
+                
 
             }
             catch(IOException io)
@@ -309,7 +314,8 @@ namespace OCRVoteExtractor
             {
                 MessageBox.Show("Primero debe haber una imagen cargada en el picture box");
             }
-      }
+            return source;
+        }
 
         private void btnScanners_Click(object sender, EventArgs e)
         {
@@ -321,35 +327,71 @@ namespace OCRVoteExtractor
                     listBox1.Items.Add(Path.GetFileName(folder));
                     papeleta = new Papeleta(this.r.ruta_papeletas + "\\" + Path.GetFileName(folder));
                     //papeleta = new Papeleta(ruta_papeletas + "\\" + Path.GetFileName(folder));
-                    papeleta.XML_file = "C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\xml\\xml1.xml";
+                    papeleta.XML_file = this.r.ruta_xml+"\\xml1.xml";
                     papeleta.cargarPartidos();
                     Papeletas.Add(papeleta);
                 }
-
-                listBox1.SelectedIndex = 0;
-
-                if (listBox1.SelectedIndex != -1)
+                MessageBox.Show("Empezando el escaneo");
+                for (int ind = 0; ind < listBox1.Items.Count; ind++)
                 {
 
-                    MessageBox.Show("Empezando el escaneo");
-                    detectTemplate();
+                    listBox1.SelectedIndex = ind;
+
+                    if (ind < listBox1.Items.Count)
+                    {
+                        showMessage("Siguiente papeleta: " + listBox1.SelectedItem.ToString(), 2000);
+                    }
+                    
+                    Image<Bgr, Byte> img_original = new Image<Bgr, Byte>(ruta_papeletas + "\\" + listBox1.Items[ind].ToString());
+                    pictureBox1.Image = img_original.ToBitmap();
+                    
+                    Image<Bgr, Byte> img = detectTemplate();
                     btnBuscarCuadros.Enabled = true;
-                    Image<Bgr, Byte> img = new Image<Bgr, Byte>((Bitmap)pictureBox1.Image);
 
 
                     buscar(img, Papeletas[listBox1.SelectedIndex]);
+                    //listBox1.Items.Count
 
-                    for (int i = 0; i < Papeletas[listBox1.SelectedIndex].partidosPapeleta.Count; i++)
-                    {
-                        MessageBox.Show(Papeletas[listBox1.SelectedIndex].partidosPapeleta[i].Nombre + ", marcado: " + Papeletas[listBox1.SelectedIndex].partidosPapeleta[i].Marcado);
-                    }
-
+                    //for (int i = 0; i < Papeletas[listBox1.SelectedIndex].partidosPapeleta.Count; i++)
+                    //{
+                    //    MessageBox.Show(Papeletas[listBox1.SelectedIndex].partidosPapeleta[i].Nombre + ", marcado: " + Papeletas[listBox1.SelectedIndex].partidosPapeleta[i].Marcado);
+                    //}
+                    
+                    
                 }
+
+                MessageBox.Show("Papeletas Escaneadas exitosamente");
+                btnTerminar.Enabled = true;
+
+
+
             }
             catch(ArgumentOutOfRangeException aore)
             {
                 MessageBox.Show("No se encontraron archivos");
             }
+        }
+
+        //Messagebox Automatico
+        private void showMessage(string msg, int duration)
+        {
+            using (System.Windows.Forms.Timer t = new System.Windows.Forms.Timer())
+            {
+                System.Windows.Forms.Timer time = new System.Windows.Forms.Timer();
+                time.Interval = duration;
+                time.Tick += timeTick;  /* Evento enlazado */
+
+                time.Start();
+
+                /* Muestras el texto en el MB */
+                MessageBox.Show(msg);
+            }
+        }
+
+        private void timeTick(object sender, EventArgs e)
+        {
+            (sender as System.Windows.Forms.Timer).Stop();  /* Detiene el Timer */
+            SendKeys.Send("{ESC}"); /* Hace la simulación de la tecla Escape, también puedes usar {ENTER} */
         }
 
         private void origenesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -386,8 +428,7 @@ namespace OCRVoteExtractor
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Image<Bgr, Byte> img = new Image<Bgr, Byte>(ruta_papeletas+"\\"+listBox1.SelectedItem.ToString());
-            pictureBox1.Image = img.ToBitmap();
+            
         }
 
         private void tsmtSalir_Click(object sender, EventArgs e)
@@ -395,7 +436,47 @@ namespace OCRVoteExtractor
             Application.Exit();
         }
 
-       
+        private void btnTerminar_Click(object sender, EventArgs e)
+        {
+            
+            XmlDocument xDoc = new XmlDocument();
+            XmlDeclaration xmlDeclaration = xDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            XmlElement root = xDoc.DocumentElement;
+            xDoc.InsertBefore(xmlDeclaration, root);
+
+            XmlElement elementoRaiz = xDoc.CreateElement(string.Empty, "resultados", string.Empty);
+            xDoc.AppendChild(elementoRaiz);
+
+            for (int i = 0; i < Papeletas.Count; i++)
+            {
+                XmlElement xpapeleta = xDoc.CreateElement(string.Empty, "papeleta", string.Empty);
+               
+                xpapeleta.SetAttribute("nombre", listBox1.Items[i].ToString());
+                //for (int k = 0; k < Papeletas[i].partidosPapeleta.Count; k++)
+                //{
+                //    MessageBox.Show(Papeletas[i].partidosPapeleta[k].Nombre + ", marcado: " + Papeletas[i].partidosPapeleta[k].Marcado);
+                //}
+                for (int ind = 0; ind < Papeletas[i].partidosPapeleta.Count; ind++)
+                {
+                   
+                    if (Papeletas[i].partidosPapeleta[ind].Marcado)
+                    {
+                       
+                        XmlElement xRepresentante = xDoc.CreateElement(string.Empty, "representante", string.Empty);
+                        XmlText xTXTRepres = xDoc.CreateTextNode(Papeletas[i].partidosPapeleta[ind].Representante);
+                        xRepresentante.AppendChild(xTXTRepres);
+                        xpapeleta.AppendChild(xRepresentante);
+                        
+                    }
+                    
+
+                }
+                elementoRaiz.AppendChild(xpapeleta);
+            }
+
+            xDoc.Save(this.r.ruta_xml +"\\resultados.xml");
+            MessageBox.Show("Resultados guardados en el xml. Votación terminada!!");
+        }
 
         private void cerrarAdministradorToolStripMenuItem_Click(object sender, EventArgs e)
         {

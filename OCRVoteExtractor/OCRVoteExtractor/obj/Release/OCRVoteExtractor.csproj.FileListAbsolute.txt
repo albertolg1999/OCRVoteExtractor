@@ -1,0 +1,14 @@
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\bin\Release\OCRVoteExtractor.exe.config
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\bin\Release\OCRVoteExtractor.exe
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\bin\Release\OCRVoteExtractor.pdb
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\bin\Release\Emgu.CV.UI.dll
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\bin\Release\Emgu.CV.World.dll
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\bin\Release\GdPicture.NET.10.dll
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Release\OCRVoteExtractor.Form1.resources
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Release\OCRVoteExtractor.frmLogin.resources
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Release\OCRVoteExtractor.frmRegistro.resources
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Release\OCRVoteExtractor.Properties.Resources.resources
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Release\OCRVoteExtractor.csproj.GenerateResource.Cache
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Release\OCRVoteExtractor.exe
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Release\OCRVoteExtractor.pdb
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Release\OCRVoteExtractor.csprojResolveAssemblyReference.cache

@@ -37,14 +37,14 @@
             this.cerrarAdministradorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmtSalir = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.progresResultado = new System.Windows.Forms.ProgressBar();
             this.btnTerminar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnScanners = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.progresResultado = new System.Windows.Forms.ProgressBar();
-            this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -142,6 +142,25 @@
             this.panel2.Size = new System.Drawing.Size(1036, 523);
             this.panel2.TabIndex = 11;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(854, 468);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(153, 13);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "Extrayendo  Resultados...";
+            // 
+            // progresResultado
+            // 
+            this.progresResultado.Location = new System.Drawing.Point(621, 468);
+            this.progresResultado.Name = "progresResultado";
+            this.progresResultado.Size = new System.Drawing.Size(227, 13);
+            this.progresResultado.Step = 1;
+            this.progresResultado.TabIndex = 18;
+            // 
             // btnTerminar
             // 
             this.btnTerminar.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -211,25 +230,6 @@
             this.pictureBox1.TabIndex = 13;
             this.pictureBox1.TabStop = false;
             // 
-            // progresResultado
-            // 
-            this.progresResultado.Location = new System.Drawing.Point(621, 468);
-            this.progresResultado.Name = "progresResultado";
-            this.progresResultado.Size = new System.Drawing.Size(227, 13);
-            this.progresResultado.Step = 1;
-            this.progresResultado.TabIndex = 18;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(854, 468);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(153, 13);
-            this.label2.TabIndex = 19;
-            this.label2.Text = "Extrayendo  Resultados...";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -241,6 +241,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "OCRVoteExtractor";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel2.ResumeLayout(false);

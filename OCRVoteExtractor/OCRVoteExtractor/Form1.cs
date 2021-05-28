@@ -31,9 +31,12 @@ namespace OCRVoteExtractor
         public GdPictureImaging oGdPictureImaging = new GdPictureImaging();
         public Form1()
         {
+
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
             r = new Rutas();
+            progresResultado.Visible = false;
+            label2.Visible = false;
             
             //partidosPapeleta = new List<partido>();
         }
@@ -164,7 +167,17 @@ namespace OCRVoteExtractor
             //MessageBox.Show(count.ToString());
 
             //MessageBox.Show("a");
+
             return p;
+            img.Dispose();
+            uimage.Dispose();
+            pyrDown.Dispose();
+            cannyEdges.Dispose();
+            element.Dispose();
+            contours.Dispose();
+            //approxContour
+
+
         }
         public void buscar(Image<Bgr, Byte> img, Papeleta p)
         {
@@ -183,11 +196,15 @@ namespace OCRVoteExtractor
             {
                p=pintarCuadros(rectangulos[k],k,p);
             }
-            img=new Image<Bgr, byte>((Bitmap)pictureBox1.Image);
+            img = new Image<Bgr, byte>((Bitmap)pictureBox1.Image);
+            
             img.Save(r.ruta_temporales + "\\resultados_" + listBox1.SelectedItem.ToString());
 
             img = new Image<Bgr, Byte>(r.ruta_papeletas + "\\" + listBox1.SelectedItem.ToString());
+            
             pictureBox1.Image = img.ToBitmap();
+
+            img.Dispose();
 
         }
 
@@ -267,16 +284,15 @@ namespace OCRVoteExtractor
         private Image<Bgr, byte> detectTemplate()
         {
             Emgu.CV.Image<Bgr, byte> source=null;
+            Emgu.CV.Image<Bgr, byte> template = null;
             try
             {
 
-                Emgu.CV.Image<Bgr, byte> template = new Emgu.CV.Image<Bgr, byte>("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\logo1.png");
+               template = new Emgu.CV.Image<Bgr, byte>(this.r.rc_imag+"\\logo1.png");
 
-                // Image<Bgr, byte> source = new Image<Bgr, byte>("C:\\Users\\alain\\Downloads\\cuadros2\\cuadros\\cuadros\\DetectarCuadros\\imagen\\1556274603WhatsAppImage2019-04-16at13.11.56_forCrop_NoticiaAmpliada.jpg");
-
+                
                source= new Image<Bgr, Byte>(new Bitmap(pictureBox1.Image));
-                //Image<Bgr, byte> source = new Image<Bgr, byte>("C:\\Users\\alain\\Downloads\\cuadros2\\cuadros\\cuadros\\DetectarCuadros\\imagen\\coleccion-logos-redes-sociales-populares-circulos_1361-901.jpg");
-                //MessageBox.Show("hola" + template.ToString());
+               
 
 
                 Mat imgout = new Mat();
@@ -306,13 +322,78 @@ namespace OCRVoteExtractor
             {
                 MessageBox.Show("Primero debe haber una imagen cargada en el picture box");
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " " + ex.StackTrace);
+            }
+            finally
+            {
+                //template.Dispose();
+                //source.Dispose();
+            }
             return source;
+            
         }
+        private void Escanear()
+        {
+            
+            int nImageCount = 0;
+            int ImageID = 0;
 
+            try
+            {
+                if (oGdPictureImaging.TwainOpenDefaultSource(this.Handle))
+                {
+                    nImageCount = 0;
+
+                    //InitScanConfig();
+
+                    oGdPictureImaging.TwainSetAutoFeed(true); // Set AutoFeed Enabled
+                    oGdPictureImaging.TwainSetAutoScan(true); // To  achieve the maximum scanning rate
+
+                    oGdPictureImaging.TwainSetResolution(300);
+                    oGdPictureImaging.TwainSetPixelType(TwainPixelType.TWPT_RGB); // RGB
+                    oGdPictureImaging.TwainSetBitDepth(24); //  24 bpp
+
+                    do
+                    {
+                        ImageID = oGdPictureImaging.TwainAcquireToGdPictureImage(this.Handle);
+                        if (ImageID != 0)
+                        {
+
+                            if (ImageID != 0)
+                            {
+
+                                nImageCount = nImageCount + 1;
+                                oGdPictureImaging.SaveAsJPEG(ImageID, this.r.ruta_temporales + "\\papeleta" + nImageCount.ToString().Trim() + ".jpg", 75);
+                                oGdPictureImaging.ReleaseGdPictureImage(ImageID);
+                            }
+
+                        }
+
+                    }
+                    while (oGdPictureImaging.TwainGetState() > TwainStatus.TWAIN_SOURCE_ENABLED);
+
+                    oGdPictureImaging.TwainCloseSource();
+                    MessageBox.Show("Escaner finalizado");
+                }
+                else
+                {
+                    MessageBox.Show("can't open default source, twain state is: " + oGdPictureImaging.TwainGetState().ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " " + ex.StackTrace);
+            }
+
+            
+        }
         private void btnScanners_Click(object sender, EventArgs e)
         {
            
             try {
+                Escanear();
                 Papeletas = new List<Papeleta>();
                 listBox1.Items.Clear();
 
@@ -451,6 +532,8 @@ namespace OCRVoteExtractor
         private void btnTerminar_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Empezando el escaneo");
+            progresResultado.Visible = true;
+            label2.Visible = true;
             this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
 
             for (int ind = 0; ind < listBox1.Items.Count; ind++)
@@ -489,6 +572,16 @@ namespace OCRVoteExtractor
 
             GuardarResultado();
            
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            //if (IntPtr.Size == 8)
+            //{
+            //    MessageBox.Show("Warning: The application is running in 64-bit mode. To be able to handle 32-bit TWAIN drivers you will have to target it to 32-bit mode.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //}
+            //GdPicture10.LicenseManager oLicenceManager = new GdPicture10.LicenseManager(); //Go to http://evaluation-gdpicture.com to get a 1 month trial key unlocking all features of the toolkit.
+            //oLicenceManager.RegisterKEY("211849558933247691113131281102544");//Please, replace XXXX by a valid demo or commercial license key. 
         }
 
         private void cerrarAdministradorToolStripMenuItem_Click(object sender, EventArgs e)

@@ -393,7 +393,7 @@ namespace OCRVoteExtractor
         {
            
             try {
-                Escanear();
+               // Escanear();
                 Papeletas = new List<Papeleta>();
                 listBox1.Items.Clear();
 

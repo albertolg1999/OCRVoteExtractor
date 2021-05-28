@@ -43,8 +43,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnScanners = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnTemplate = new System.Windows.Forms.Button();
-            this.btnBuscarCuadros = new System.Windows.Forms.Button();
+            this.progresResultado = new System.Windows.Forms.ProgressBar();
+            this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -126,17 +126,16 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.panel2.BackgroundImage = global::OCRVoteExtractor.Properties.Resources.bgcontrol1;
+            this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.progresResultado);
             this.panel2.Controls.Add(this.btnTerminar);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.listBox1);
             this.panel2.Controls.Add(this.panel1);
             this.panel2.Controls.Add(this.btnScanners);
             this.panel2.Controls.Add(this.pictureBox1);
-            this.panel2.Controls.Add(this.btnTemplate);
-            this.panel2.Controls.Add(this.btnBuscarCuadros);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 24);
             this.panel2.Name = "panel2";
@@ -145,12 +144,11 @@
             // 
             // btnTerminar
             // 
-            this.btnTerminar.BackColor = System.Drawing.Color.Transparent;
-            this.btnTerminar.BackgroundImage = global::OCRVoteExtractor.Properties.Resources._5895d3becba9841eabab6082;
+            this.btnTerminar.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnTerminar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnTerminar.Enabled = false;
             this.btnTerminar.FlatAppearance.BorderSize = 0;
-            this.btnTerminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTerminar.Location = new System.Drawing.Point(529, 436);
+            this.btnTerminar.Location = new System.Drawing.Point(419, 436);
             this.btnTerminar.Margin = new System.Windows.Forms.Padding(2);
             this.btnTerminar.Name = "btnTerminar";
             this.btnTerminar.Size = new System.Drawing.Size(181, 76);
@@ -164,7 +162,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("MV Boli", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(70, 3);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(104, 25);
@@ -173,6 +171,7 @@
             // 
             // listBox1
             // 
+            this.listBox1.BackColor = System.Drawing.Color.LightGray;
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(32, 31);
             this.listBox1.Name = "listBox1";
@@ -190,11 +189,9 @@
             // 
             // btnScanners
             // 
-            this.btnScanners.BackColor = System.Drawing.Color.Transparent;
-            this.btnScanners.BackgroundImage = global::OCRVoteExtractor.Properties.Resources._5895d3becba9841eabab6082;
+            this.btnScanners.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnScanners.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnScanners.FlatAppearance.BorderSize = 0;
-            this.btnScanners.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnScanners.Location = new System.Drawing.Point(38, 436);
             this.btnScanners.Margin = new System.Windows.Forms.Padding(2);
             this.btnScanners.Name = "btnScanners";
@@ -206,47 +203,32 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.Desktop;
             this.pictureBox1.Location = new System.Drawing.Point(297, 31);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(708, 385);
+            this.pictureBox1.Size = new System.Drawing.Size(708, 381);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 13;
             this.pictureBox1.TabStop = false;
             // 
-            // btnTemplate
+            // progresResultado
             // 
-            this.btnTemplate.BackColor = System.Drawing.Color.Transparent;
-            this.btnTemplate.BackgroundImage = global::OCRVoteExtractor.Properties.Resources._5895d3becba9841eabab6082;
-            this.btnTemplate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnTemplate.Enabled = false;
-            this.btnTemplate.FlatAppearance.BorderSize = 0;
-            this.btnTemplate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTemplate.Location = new System.Drawing.Point(297, 435);
-            this.btnTemplate.Margin = new System.Windows.Forms.Padding(2);
-            this.btnTemplate.Name = "btnTemplate";
-            this.btnTemplate.Size = new System.Drawing.Size(181, 76);
-            this.btnTemplate.TabIndex = 12;
-            this.btnTemplate.Text = "Buscar Template";
-            this.btnTemplate.UseVisualStyleBackColor = false;
-            this.btnTemplate.Click += new System.EventHandler(this.button2_Click);
+            this.progresResultado.Location = new System.Drawing.Point(621, 468);
+            this.progresResultado.Name = "progresResultado";
+            this.progresResultado.Size = new System.Drawing.Size(227, 13);
+            this.progresResultado.Step = 1;
+            this.progresResultado.TabIndex = 18;
             // 
-            // btnBuscarCuadros
+            // label2
             // 
-            this.btnBuscarCuadros.BackColor = System.Drawing.Color.Transparent;
-            this.btnBuscarCuadros.BackgroundImage = global::OCRVoteExtractor.Properties.Resources._5895d3becba9841eabab6082;
-            this.btnBuscarCuadros.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnBuscarCuadros.Enabled = false;
-            this.btnBuscarCuadros.FlatAppearance.BorderSize = 0;
-            this.btnBuscarCuadros.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBuscarCuadros.Location = new System.Drawing.Point(746, 435);
-            this.btnBuscarCuadros.Margin = new System.Windows.Forms.Padding(2);
-            this.btnBuscarCuadros.Name = "btnBuscarCuadros";
-            this.btnBuscarCuadros.Size = new System.Drawing.Size(181, 76);
-            this.btnBuscarCuadros.TabIndex = 11;
-            this.btnBuscarCuadros.Text = "Dectectar Casillas";
-            this.btnBuscarCuadros.UseVisualStyleBackColor = false;
-            this.btnBuscarCuadros.Click += new System.EventHandler(this.button1_Click);
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(854, 468);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(153, 13);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "Extrayendo  Resultados...";
             // 
             // Form1
             // 
@@ -281,12 +263,12 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnScanners;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button btnTemplate;
-        private System.Windows.Forms.Button btnBuscarCuadros;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ToolStripMenuItem tsmtSalir;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnTerminar;
+        private System.Windows.Forms.ProgressBar progresResultado;
+        private System.Windows.Forms.Label label2;
     }
 }
 

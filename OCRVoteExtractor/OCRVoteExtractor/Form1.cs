@@ -43,15 +43,7 @@ namespace OCRVoteExtractor
             //Papeleta papeleta = new Papeleta(ruta_papeletas+"\\"+listBox1.SelectedItem.ToString());
             Image <Bgr, Byte> img = new Image<Bgr, Byte>((Bitmap)pictureBox1.Image);
            
-            // Image<Bgr, Byte> img = new Image<Bgr, Byte>("D:\\testimages\\2372884_41620516.tif");
-            //Rectangle r = DetectSquare(img, 5, 3600, 70, 60, 70, 60);+
-            //string[] ficheros = System.IO.Directory.GetFiles("C:\\Users\\disen\\Downloads\\cuadros\\cuadros\\imagenes");
-            //    RecogSchema esquema = LeerXml();
-            //    //DateTime fechaVoto = DateTime.Now;
-            //foreach (string f in ficheros)            {
-            //string f = "C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\image1.jpg";
             
-            //pintaCuadrados();
             buscar(img, Papeletas[listBox1.SelectedIndex]);
 
             //for(int i = 0; i < Papeletas[listBox1.SelectedIndex].partidosPapeleta.Count; i++)
@@ -319,9 +311,11 @@ namespace OCRVoteExtractor
 
         private void btnScanners_Click(object sender, EventArgs e)
         {
+           
             try {
                 Papeletas = new List<Papeleta>();
                 listBox1.Items.Clear();
+
                 foreach (String folder in Directory.GetFiles(ruta_papeletas))
                 {
                     listBox1.Items.Add(Path.GetFileName(folder));
@@ -331,39 +325,15 @@ namespace OCRVoteExtractor
                     papeleta.cargarPartidos();
                     Papeletas.Add(papeleta);
                 }
-                MessageBox.Show("Empezando el escaneo");
-                for (int ind = 0; ind < listBox1.Items.Count; ind++)
-                {
 
-                    listBox1.SelectedIndex = ind;
-
-                    if (ind < listBox1.Items.Count)
-                    {
-                        showMessage("Siguiente papeleta: " + listBox1.SelectedItem.ToString(), 2000);
-                    }
-                    
-                    Image<Bgr, Byte> img_original = new Image<Bgr, Byte>(ruta_papeletas + "\\" + listBox1.Items[ind].ToString());
-                    pictureBox1.Image = img_original.ToBitmap();
-                    
-                    Image<Bgr, Byte> img = detectTemplate();
-                    btnBuscarCuadros.Enabled = true;
-
-
-                    buscar(img, Papeletas[listBox1.SelectedIndex]);
-                    //listBox1.Items.Count
-
-                    //for (int i = 0; i < Papeletas[listBox1.SelectedIndex].partidosPapeleta.Count; i++)
-                    //{
-                    //    MessageBox.Show(Papeletas[listBox1.SelectedIndex].partidosPapeleta[i].Nombre + ", marcado: " + Papeletas[listBox1.SelectedIndex].partidosPapeleta[i].Marcado);
-                    //}
-                    
-                    
-                }
-
-                MessageBox.Show("Papeletas Escaneadas exitosamente");
+               
                 btnTerminar.Enabled = true;
 
+                Image<Bgr, Byte> img_original = new Image<Bgr, Byte>(ruta_papeletas + "\\" + listBox1.Items[0].ToString());
+                pictureBox1.Image = img_original.ToBitmap();
+                //listBox1.SelectedIndex = 0;
 
+                progresResultado.Maximum = Papeletas.Count;
 
             }
             catch(ArgumentOutOfRangeException aore)
@@ -428,7 +398,8 @@ namespace OCRVoteExtractor
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            Image<Bgr, Byte> img_original = new Image<Bgr, Byte>(ruta_papeletas + "\\" + listBox1.Items[listBox1.SelectedIndex].ToString());
+            pictureBox1.Image = img_original.ToBitmap();
         }
 
         private void tsmtSalir_Click(object sender, EventArgs e)
@@ -436,9 +407,9 @@ namespace OCRVoteExtractor
             Application.Exit();
         }
 
-        private void btnTerminar_Click(object sender, EventArgs e)
+
+        private void GuardarResultado()
         {
-            
             XmlDocument xDoc = new XmlDocument();
             XmlDeclaration xmlDeclaration = xDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
             XmlElement root = xDoc.DocumentElement;
@@ -450,7 +421,7 @@ namespace OCRVoteExtractor
             for (int i = 0; i < Papeletas.Count; i++)
             {
                 XmlElement xpapeleta = xDoc.CreateElement(string.Empty, "papeleta", string.Empty);
-               
+
                 xpapeleta.SetAttribute("nombre", listBox1.Items[i].ToString());
                 //for (int k = 0; k < Papeletas[i].partidosPapeleta.Count; k++)
                 //{
@@ -458,24 +429,66 @@ namespace OCRVoteExtractor
                 //}
                 for (int ind = 0; ind < Papeletas[i].partidosPapeleta.Count; ind++)
                 {
-                   
+
                     if (Papeletas[i].partidosPapeleta[ind].Marcado)
                     {
-                       
+
                         XmlElement xRepresentante = xDoc.CreateElement(string.Empty, "representante", string.Empty);
                         XmlText xTXTRepres = xDoc.CreateTextNode(Papeletas[i].partidosPapeleta[ind].Representante);
                         xRepresentante.AppendChild(xTXTRepres);
                         xpapeleta.AppendChild(xRepresentante);
-                        
+
                     }
-                    
+
 
                 }
                 elementoRaiz.AppendChild(xpapeleta);
             }
 
-            xDoc.Save(this.r.ruta_xml +"\\resultados.xml");
+            xDoc.Save(this.r.ruta_xml + "\\resultados.xml");
             MessageBox.Show("Resultados guardados en el xml. Votación terminada!!");
+        }
+        private void btnTerminar_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Empezando el escaneo");
+            this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+
+            for (int ind = 0; ind < listBox1.Items.Count; ind++)
+            {
+                progresResultado.Value += 1;
+                listBox1.SelectedIndex = ind;
+
+                //if (ind < listBox1.Items.Count)
+                //{
+                //    showMessage("Siguiente papeleta: " + listBox1.SelectedItem.ToString(), 2000);
+                //}
+
+                
+
+                Image<Bgr, Byte> img = detectTemplate();
+                //btnBuscarCuadros.Enabled = true;
+
+
+                buscar(img, Papeletas[listBox1.SelectedIndex]);
+                //listBox1.Items.Count
+
+                
+
+                //showMessage("Extracción completada: " + listBox1.SelectedItem.ToString(), 2000);
+
+                //for (int i = 0; i < Papeletas[listBox1.SelectedIndex].partidosPapeleta.Count; i++)
+                //{
+                //    MessageBox.Show(Papeletas[listBox1.SelectedIndex].partidosPapeleta[i].Nombre + ", marcado: " + Papeletas[listBox1.SelectedIndex].partidosPapeleta[i].Marcado);
+                //}
+
+
+            }
+            this.Cursor = System.Windows.Forms.Cursors.Arrow;
+            label2.Text = "Extracción terminada";
+            MessageBox.Show("Papeletas Escaneadas exitosamente");
+
+            GuardarResultado();
+           
         }
 
         private void cerrarAdministradorToolStripMenuItem_Click(object sender, EventArgs e)

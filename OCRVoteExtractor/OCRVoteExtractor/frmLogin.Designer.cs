@@ -91,6 +91,7 @@
             this.btnScanners.TabIndex = 15;
             this.btnScanners.Text = "Entrar";
             this.btnScanners.UseVisualStyleBackColor = false;
+            this.btnScanners.Click += new System.EventHandler(this.btnScanners_Click);
             // 
             // txtPass
             // 

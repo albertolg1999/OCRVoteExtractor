@@ -23,6 +23,8 @@ namespace OCRVoteExtractor
 {
     public partial class Form1 : Form
     {
+
+        
         Rutas r;
         List<Papeleta> Papeletas;
         Papeleta papeleta;
@@ -447,8 +449,10 @@ namespace OCRVoteExtractor
 
         private void origenesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // _twain = new Twain(new WinFormsWindowMessageHook(this));
+           
             oGdPictureImaging.TwainSelectSource(this.Handle);
-            MessageBox.Show(this.Handle.ToString());
+            //MessageBox.Show(this.Handle.ToString());
         }
 
         private void abrirOrigenSeleccionadoToolStripMenuItem_Click(object sender, EventArgs e)

@@ -14,10 +14,13 @@ namespace OCRVoteExtractor
 {
     public partial class frmLogin : Form
     {
+        
+
         public frmLogin()
         {
             InitializeComponent();
             this.StartPosition=FormStartPosition.CenterScreen;
+            txtPass.PasswordChar = '*';
         }
 
         private void btnRegistro_Click(object sender, EventArgs e)
@@ -26,12 +29,13 @@ namespace OCRVoteExtractor
             r.Show();
             this.Hide();
             
+
         }
 
         private void btnScanners_Click(object sender, EventArgs e)
         {
-            comprobarLogin(txtUser.Text,txtPass.Text);
-            this.Hide();
+            comprobarLogin(txtUser.Text,txtPass.Text,this);
+            //this.Hide();
         }
         public static int invertirYBuscarRol(char[] normal)
         {
@@ -48,7 +52,7 @@ namespace OCRVoteExtractor
             return id_rol;
         }
 
-        private static void comprobarLogin(String user, String psw)
+        private static void comprobarLogin(String user, String psw,frmLogin fl)
         {
             var url = $"http://localhost:8080/app/login/{user}/{psw}";
             var request = (HttpWebRequest)WebRequest.Create(url);
@@ -73,6 +77,12 @@ namespace OCRVoteExtractor
                                 {
                                     Form1 f = new Form1();
                                     f.Show();
+                                    fl.Hide();
+                                }
+                                else {
+                                    frmAdmin fa = new frmAdmin();
+                                    fa.Show();
+                                    fl.Hide();
                                 }
                                 //MessageBox.Show(responseBody.ToString());
                                 
@@ -80,7 +90,7 @@ namespace OCRVoteExtractor
                             }
                             else
                             {
-                                MessageBox.Show("Usuario: " + user + " no existe, por favor registrese para acceder al sistema");
+                                MessageBox.Show("Usuario: " + user + " no existe o no es la contraseña correcta, por favor registrese para acceder al sistema");
                             }
                             // Do something with responseBody
                            
@@ -95,13 +105,26 @@ namespace OCRVoteExtractor
             {
                 MessageBox.Show("No existe.Debe registrarse");
             }
-            finally
-            {
-                
-            }
             
         }
-        
 
+        private void btnVerpsw_Click(object sender, EventArgs e)
+        {
+            //UseSystemPasswordChar = true;ç
+            btnVerpsw.Visible = false;
+            this.btnOcultarpsw.Visible = true;
+            txtPass.PasswordChar = '\0';
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+        }
+
+        private void btnOcultarpsw_Click(object sender, EventArgs e)
+        {
+            btnVerpsw.Visible = true;
+            this.btnOcultarpsw.Visible = false;
+            txtPass.PasswordChar = '*';
+        }
     }
 }

@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnOcultarpsw = new System.Windows.Forms.Button();
+            this.btnVerpsw = new System.Windows.Forms.Button();
             this.btnRegistro = new System.Windows.Forms.Button();
             this.btnScanners = new System.Windows.Forms.Button();
             this.txtPass = new System.Windows.Forms.TextBox();
@@ -47,6 +49,8 @@
             // 
             this.panel1.BackgroundImage = global::OCRVoteExtractor.Properties.Resources.bgcontrol;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Controls.Add(this.btnOcultarpsw);
+            this.panel1.Controls.Add(this.btnVerpsw);
             this.panel1.Controls.Add(this.btnRegistro);
             this.panel1.Controls.Add(this.btnScanners);
             this.panel1.Controls.Add(this.txtPass);
@@ -60,6 +64,38 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(468, 477);
             this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // btnOcultarpsw
+            // 
+            this.btnOcultarpsw.BackColor = System.Drawing.Color.Transparent;
+            this.btnOcultarpsw.BackgroundImage = global::OCRVoteExtractor.Properties.Resources.hide_icon_153458;
+            this.btnOcultarpsw.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnOcultarpsw.FlatAppearance.BorderSize = 0;
+            this.btnOcultarpsw.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOcultarpsw.Location = new System.Drawing.Point(390, 242);
+            this.btnOcultarpsw.Margin = new System.Windows.Forms.Padding(2);
+            this.btnOcultarpsw.Name = "btnOcultarpsw";
+            this.btnOcultarpsw.Size = new System.Drawing.Size(27, 25);
+            this.btnOcultarpsw.TabIndex = 18;
+            this.btnOcultarpsw.UseVisualStyleBackColor = false;
+            this.btnOcultarpsw.Visible = false;
+            this.btnOcultarpsw.Click += new System.EventHandler(this.btnOcultarpsw_Click);
+            // 
+            // btnVerpsw
+            // 
+            this.btnVerpsw.BackColor = System.Drawing.Color.Transparent;
+            this.btnVerpsw.BackgroundImage = global::OCRVoteExtractor.Properties.Resources.show_icon_153436;
+            this.btnVerpsw.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnVerpsw.FlatAppearance.BorderSize = 0;
+            this.btnVerpsw.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVerpsw.Location = new System.Drawing.Point(390, 242);
+            this.btnVerpsw.Margin = new System.Windows.Forms.Padding(2);
+            this.btnVerpsw.Name = "btnVerpsw";
+            this.btnVerpsw.Size = new System.Drawing.Size(27, 25);
+            this.btnVerpsw.TabIndex = 17;
+            this.btnVerpsw.UseVisualStyleBackColor = false;
+            this.btnVerpsw.Click += new System.EventHandler(this.btnVerpsw_Click);
             // 
             // btnRegistro
             // 
@@ -163,11 +199,11 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("MV Boli", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(12, 25);
+            this.label1.Location = new System.Drawing.Point(63, 27);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(438, 63);
+            this.label1.Size = new System.Drawing.Size(342, 63);
             this.label1.TabIndex = 0;
-            this.label1.Text = "OCRVoteExtractor";
+            this.label1.Text = "VoteExtractor";
             // 
             // frmLogin
             // 
@@ -198,5 +234,7 @@
         private System.Windows.Forms.TextBox txtPass;
         private System.Windows.Forms.Button btnRegistro;
         private System.Windows.Forms.Button btnScanners;
+        private System.Windows.Forms.Button btnVerpsw;
+        private System.Windows.Forms.Button btnOcultarpsw;
     }
 }

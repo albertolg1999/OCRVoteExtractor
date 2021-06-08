@@ -123,6 +123,16 @@ namespace OCRVoteExtractor.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap hide_icon_153458 {
+            get {
+                object obj = ResourceManager.GetObject("hide_icon_153458", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icon_5359553_1280 {
             get {
                 object obj = ResourceManager.GetObject("icon-5359553_1280", resourceCulture);
@@ -146,6 +156,16 @@ namespace OCRVoteExtractor.Properties {
         internal static System.Drawing.Bitmap password {
             get {
                 object obj = ResourceManager.GetObject("password", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap show_icon_153436 {
+            get {
+                object obj = ResourceManager.GetObject("show_icon_153436", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

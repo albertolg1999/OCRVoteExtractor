@@ -117,6 +117,20 @@ namespace OCRVoteExtractor
              
             
         }
+
+        private void btnVerpsw_Click(object sender, EventArgs e)
+        {
+            btnVerpsw.Visible = false;
+            this.btnOcultarpsw.Visible = true;
+            txtPass.PasswordChar = '\0';
+        }
+
+        private void btnOcultarpsw_Click(object sender, EventArgs e)
+        {
+            btnVerpsw.Visible = true;
+            this.btnOcultarpsw.Visible = false;
+            txtPass.PasswordChar = '*';
+        }
     }
     
 }

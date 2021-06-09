@@ -18,6 +18,8 @@ using OCRVoteExtractor.clases;
 using System.Xml;
 using System.IO;
 using System.Threading;
+using Newtonsoft.Json;
+using System.Net;
 
 namespace OCRVoteExtractor
 {
@@ -27,6 +29,7 @@ namespace OCRVoteExtractor
         
         Rutas r;
         List<Papeleta> Papeletas;
+        String resEnvio=null;
         Papeleta papeleta;
         String ruta_papeletas = "C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\papeletas";
         int xT, yT;
@@ -58,37 +61,7 @@ namespace OCRVoteExtractor
             //pintaCuadrados(f);
             //}
         }
-
-
-        //public void cargarPartidos()
-        //{
-        //    XmlDocument xDoc;
-        //    xDoc = new XmlDocument();
-        //    partido p;
-        //    xDoc.Load("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\xml\\xml1.xml");
-        //    XmlNodeList papeleta = xDoc.GetElementsByTagName("papeleta");
-        //    XmlNodeList cuadrado = ((XmlElement)papeleta[0]).GetElementsByTagName("cuadrado");
-        //    foreach (XmlElement cuadro in cuadrado)
-        //    {
-        //        p = new partido();
-        //        XmlNodeList nombre = cuadro.GetElementsByTagName("nombrePartido");
-        //        p.Nombre = ((XmlElement)nombre[0]).InnerText.ToString();
-        //        XmlNodeList representante = cuadro.GetElementsByTagName("representante");
-        //        p.Representante = ((XmlElement)representante[0]).InnerText.ToString();
-        //        XmlNodeList distX = cuadro.GetElementsByTagName("distCuadroX");
-        //        p.DistX = int.Parse(((XmlElement)distX[0]).InnerText.ToString());
-        //        XmlNodeList distY = cuadro.GetElementsByTagName("distCuadroY");
-        //        p.DistY = int.Parse(((XmlElement)distY[0]).InnerText.ToString());
-        //        XmlNodeList ancho = cuadro.GetElementsByTagName("anchoCuadro");
-        //        p.Ancho = int.Parse(((XmlElement)ancho[0]).InnerText.ToString());
-        //        XmlNodeList alto = cuadro.GetElementsByTagName("altoCuadro");
-        //        p.Alto = int.Parse(((XmlElement)alto[0]).InnerText.ToString());
-        //        p.Marcado = false;
-        //       // this.partidosPapeleta.Add(p);
-        //        //MessageBox.Show(p.Nombre);
-        //    }
-        //}
-
+        
         public Papeleta pintarCuadros(Rectangle r,int k, Papeleta p)
         {
             // detectar si hay cuadrados
@@ -391,6 +364,8 @@ namespace OCRVoteExtractor
 
             
         }
+
+
         private void btnScanners_Click(object sender, EventArgs e)
         {
            
@@ -401,7 +376,9 @@ namespace OCRVoteExtractor
 
                 foreach (String folder in Directory.GetFiles(ruta_papeletas))
                 {
+                    listBox1.Sorted = false;
                     listBox1.Items.Add(Path.GetFileName(folder));
+                    
                     papeleta = new Papeleta(this.r.ruta_papeletas + "\\" + Path.GetFileName(folder));
                     //papeleta = new Papeleta(ruta_papeletas + "\\" + Path.GetFileName(folder));
                     papeleta.XML_file = this.r.ruta_xml+"\\xml1.xml";
@@ -425,21 +402,7 @@ namespace OCRVoteExtractor
             }
         }
 
-        //Messagebox Automatico
-        private void showMessage(string msg, int duration)
-        {
-            using (System.Windows.Forms.Timer t = new System.Windows.Forms.Timer())
-            {
-                System.Windows.Forms.Timer time = new System.Windows.Forms.Timer();
-                time.Interval = duration;
-                time.Tick += timeTick;  /* Evento enlazado */
-
-                time.Start();
-
-                /* Muestras el texto en el MB */
-                MessageBox.Show(msg);
-            }
-        }
+       
 
         private void timeTick(object sender, EventArgs e)
         {
@@ -495,47 +458,41 @@ namespace OCRVoteExtractor
 
         private void GuardarResultado()
         {
-            XmlDocument xDoc = new XmlDocument();
-            XmlDeclaration xmlDeclaration = xDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
-            XmlElement root = xDoc.DocumentElement;
-            xDoc.InsertBefore(xmlDeclaration, root);
-
-            XmlElement elementoRaiz = xDoc.CreateElement(string.Empty, "resultados", string.Empty);
-            xDoc.AppendChild(elementoRaiz);
-
+            Resultados res = new Resultados();
             for (int i = 0; i < Papeletas.Count; i++)
             {
-                XmlElement xpapeleta = xDoc.CreateElement(string.Empty, "papeleta", string.Empty);
-
-                xpapeleta.SetAttribute("nombre", listBox1.Items[i].ToString());
-                //for (int k = 0; k < Papeletas[i].partidosPapeleta.Count; k++)
-                //{
-                //    MessageBox.Show(Papeletas[i].partidosPapeleta[k].Nombre + ", marcado: " + Papeletas[i].partidosPapeleta[k].Marcado);
-                //}
+                PapeletaXML papeleta = new PapeletaXML();
+                papeleta.Nombre = listBox1.Items[i].ToString();
+                
                 for (int ind = 0; ind < Papeletas[i].partidosPapeleta.Count; ind++)
                 {
-
                     if (Papeletas[i].partidosPapeleta[ind].Marcado)
                     {
-
-                        XmlElement xRepresentante = xDoc.CreateElement(string.Empty, "representante", string.Empty);
-                        XmlText xTXTRepres = xDoc.CreateTextNode(Papeletas[i].partidosPapeleta[ind].Representante);
-                        xRepresentante.AppendChild(xTXTRepres);
-                        xpapeleta.AppendChild(xRepresentante);
-
-                    }
-
-
+                        if (string.IsNullOrEmpty(papeleta.Representante))
+                        {
+                            papeleta.Representante = Papeletas[i].partidosPapeleta[ind].Representante;
+                        }
+                        else
+                        {
+                            papeleta.Nombre = null;
+                            break;
+                        }
+                    }                    
                 }
-                elementoRaiz.AppendChild(xpapeleta);
-            }
 
-            xDoc.Save(this.r.ruta_xml + "\\resultados.xml");
-            MessageBox.Show("Resultados guardados en el xml. Votación terminada!!");
+                if (!string.IsNullOrEmpty(papeleta.Nombre) && !string.IsNullOrEmpty(papeleta.Representante))
+                    res.Papeletas.Add(papeleta);
+            }
+            resEnvio=JsonConvert.SerializeObject(res);
+            MessageBox.Show(res.Papeletas.Count.ToString());
+
+            File.WriteAllText(Path.Combine(this.r.ruta_xml, "resultados.json"), JsonConvert.SerializeObject(res));
+           
+            MessageBox.Show("Resultados guardados en el json correctamente. Votación terminada!!");
         }
         private void btnTerminar_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Empezando el escaneo");
+            MessageBox.Show("Empezando el procesamiento de papeletas");
             progresResultado.Visible = true;
             label2.Visible = true;
             this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
@@ -575,9 +532,13 @@ namespace OCRVoteExtractor
             MessageBox.Show("Papeletas Escaneadas exitosamente");
 
             GuardarResultado();
+            btnTerminar.Visible = false;
+            btnEnviar.Visible = true;
+
            
         }
 
+       
         private void Form1_Load(object sender, EventArgs e)
         {
             //if (IntPtr.Size == 8)
@@ -588,11 +549,75 @@ namespace OCRVoteExtractor
             //oLicenceManager.RegisterKEY("211849558933247691113131281102544");//Please, replace XXXX by a valid demo or commercial license key. 
         }
 
+        private void btnEnviar_Click(object sender, EventArgs e)
+        {
+            enviarResultados();
+            // MessageBox.Show(jsonText);
+            //ConvertirXmlJson();
+        }
+
         private void cerrarAdministradorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             oGdPictureImaging.TwainCloseSourceManager(this.Handle);
         }
 
-       
+        private void enviarResultados()
+        {
+
+            var url = $"http://localhost:8080/app/votos";
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            //MessageBox.Show(request.ToString());
+            //string json = $"{{\"user\":\"{user}\",\"psw\":\"{pass}\",\"cpsw\":\"{cpass}\",\"rol\":\"{rol}\"}}";
+            request.Method = "POST";
+            //\"id\":\"{id}\",
+            request.ContentType = "application/json";
+            request.Accept = "application/json";
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(this.resEnvio);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+            try
+            {
+                using (WebResponse response = request.GetResponse())
+                {
+                    using (Stream strReader = response.GetResponseStream())
+                    {
+                        MessageBox.Show(strReader.ToString());
+                        if (strReader == null)
+                        {
+                            MessageBox.Show("El usuario ya existe en la bd");
+                        }
+                        else
+                        {
+                            using (StreamReader objReader = new StreamReader(strReader))
+                            {
+                                string responseBody = objReader.ReadToEnd();
+                                if (responseBody != " ")
+                                {
+                                    // Do something with responseBody
+                                    MessageBox.Show(responseBody);
+                                    MessageBox.Show("Insertado correctamente");
+                                }
+                                else
+                                {
+                                    MessageBox.Show("El usuario ya existe en la bd");
+                                }
+
+                            }
+                        }
+
+                    }
+                }
+            }
+            catch (WebException ex)
+            {
+                // Handle error
+                MessageBox.Show("El usuario ya existe en la bd");
+            }
+
+            
+        }
     }
 }

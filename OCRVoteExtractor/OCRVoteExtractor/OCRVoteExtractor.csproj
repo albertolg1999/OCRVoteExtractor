@@ -84,7 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="clases\Papeleta.cs" />
+    <Compile Include="clases\PapeletaXML.cs" />
     <Compile Include="clases\partido.cs" />
+    <Compile Include="clases\Resultados.cs" />
     <Compile Include="clases\Rutas.cs" />
     <Compile Include="clases\Usuario.cs" />
     <Compile Include="Form1.cs">

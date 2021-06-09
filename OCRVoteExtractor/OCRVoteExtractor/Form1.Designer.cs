@@ -37,6 +37,7 @@
             this.cerrarAdministradorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmtSalir = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnEnviar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.progresResultado = new System.Windows.Forms.ProgressBar();
             this.btnTerminar = new System.Windows.Forms.Button();
@@ -128,6 +129,7 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel2.Controls.Add(this.btnEnviar);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.progresResultado);
             this.panel2.Controls.Add(this.btnTerminar);
@@ -141,6 +143,22 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1036, 523);
             this.panel2.TabIndex = 11;
+            // 
+            // btnEnviar
+            // 
+            this.btnEnviar.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btnEnviar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnEnviar.Enabled = false;
+            this.btnEnviar.FlatAppearance.BorderSize = 0;
+            this.btnEnviar.Location = new System.Drawing.Point(419, 436);
+            this.btnEnviar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnEnviar.Name = "btnEnviar";
+            this.btnEnviar.Size = new System.Drawing.Size(181, 76);
+            this.btnEnviar.TabIndex = 20;
+            this.btnEnviar.Text = "Enviar Resultados";
+            this.btnEnviar.UseVisualStyleBackColor = false;
+            this.btnEnviar.Visible = false;
+            this.btnEnviar.Click += new System.EventHandler(this.btnEnviar_Click);
             // 
             // label2
             // 
@@ -172,7 +190,7 @@
             this.btnTerminar.Name = "btnTerminar";
             this.btnTerminar.Size = new System.Drawing.Size(181, 76);
             this.btnTerminar.TabIndex = 17;
-            this.btnTerminar.Text = "Terminar Votación";
+            this.btnTerminar.Text = "Procesar Papeletas";
             this.btnTerminar.UseVisualStyleBackColor = false;
             this.btnTerminar.Click += new System.EventHandler(this.btnTerminar_Click);
             // 
@@ -237,7 +255,7 @@
             this.ClientSize = new System.Drawing.Size(1036, 547);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "OCRVoteExtractor";
@@ -270,6 +288,7 @@
         private System.Windows.Forms.Button btnTerminar;
         private System.Windows.Forms.ProgressBar progresResultado;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnEnviar;
     }
 }
 

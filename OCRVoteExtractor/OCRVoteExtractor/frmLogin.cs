@@ -25,19 +25,16 @@ namespace OCRVoteExtractor
 
         private void btnRegistro_Click(object sender, EventArgs e)
         {
-            frmRegistro r = new frmRegistro();
+            frmRegistro r = new frmRegistro(this);
             r.Show();
             this.Hide();
             
 
         }
 
-        private void btnScanners_Click(object sender, EventArgs e)
-        {
-            comprobarLogin(txtUser.Text,txtPass.Text,this);
-            //this.Hide();
-        }
-        public static int invertirYBuscarRol(char[] normal)
+        
+         
+public static int invertirYBuscarRol(char[] normal)
         {
             string invert = "";
             for(int i = normal.Length - 1; i > 0; i--)
@@ -54,57 +51,67 @@ namespace OCRVoteExtractor
 
         private static void comprobarLogin(String user, String psw,frmLogin fl)
         {
-            var url = $"http://localhost:8080/app/login/{user}/{psw}";
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-            request.ContentType = "application/json";
-            request.Accept = "application/json";
             try
             {
-                using (WebResponse response = request.GetResponse())
+                var url = $"http://localhost:8080/app/login/{user}/{psw}";
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "GET";
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                try
                 {
-                    using (Stream strReader = response.GetResponseStream())
+                    using (WebResponse response = request.GetResponse())
                     {
-                        if (strReader == null) return;
+                        using (Stream strReader = response.GetResponseStream())
+                        {
+                            if (strReader == null) return;
                             using (StreamReader objReader = new StreamReader(strReader))
                             {
                                 string responseBody = objReader.ReadToEnd();
-                            if (responseBody.Length > 0)
-                            {
-                                char[] normal = responseBody.ToCharArray();
-                                MessageBox.Show("Usuario: " + user + ", se ha logeado correctamente");
-                                if (invertirYBuscarRol(normal) == 1)
+                                if (responseBody.Length > 0)
                                 {
-                                    Form1 f = new Form1();
-                                    f.Show();
-                                    fl.Hide();
+                                    char[] normal = responseBody.ToCharArray();
+                                    MessageBox.Show("Usuario: " + user + ", se ha logeado correctamente");
+                                    if (invertirYBuscarRol(normal) == 1)
+                                    {
+                                        Form1 f = new Form1();
+                                        f.Show();
+                                        fl.Hide();
+                                    }
+                                    else
+                                    {
+                                        frmAdmin fa = new frmAdmin();
+                                        fa.Show();
+                                        fl.Hide();
+                                    }
+                                    //MessageBox.Show(responseBody.ToString());
+
+
                                 }
-                                else {
-                                    frmAdmin fa = new frmAdmin();
-                                    fa.Show();
-                                    fl.Hide();
+                                else
+                                {
+                                    MessageBox.Show("Usuario: " + user + " no existe o no es la contraseña correcta, por favor registrese para acceder al sistema o compruebe sus credenciales", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
-                                //MessageBox.Show(responseBody.ToString());
-                                
-                                
-                            }
-                            else
-                            {
-                                MessageBox.Show("Usuario: " + user + " no existe o no es la contraseña correcta, por favor registrese para acceder al sistema");
-                            }
-                            // Do something with responseBody
-                           
-                                
+                                // Do something with responseBody
+
+
                             }
                         }
-                        
+
                     }
-                
+
+                }
+                catch (WebException ex)
+                {
+                    //MessageBox.Show("No existe.Debe registrarse");
+                    MessageBox.Show("No existe conexion con el servidor", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (WebException ex)
             {
-                MessageBox.Show("No existe.Debe registrarse");
+                MessageBox.Show("No existe conexion con el servidor", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            
             
         }
 
@@ -125,6 +132,18 @@ namespace OCRVoteExtractor
             btnVerpsw.Visible = true;
             this.btnOcultarpsw.Visible = false;
             txtPass.PasswordChar = '*';
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            if (txtUser.Text == "" || txtPass.Text == "")
+            {
+                MessageBox.Show("Por favor rellene los campos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                comprobarLogin(txtUser.Text.ToLower(), txtPass.Text.ToLower(), this);
+            }
         }
     }
 }

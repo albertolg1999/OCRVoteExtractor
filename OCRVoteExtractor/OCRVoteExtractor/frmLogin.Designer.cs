@@ -32,7 +32,7 @@
             this.btnOcultarpsw = new System.Windows.Forms.Button();
             this.btnVerpsw = new System.Windows.Forms.Button();
             this.btnRegistro = new System.Windows.Forms.Button();
-            this.btnScanners = new System.Windows.Forms.Button();
+            this.btnLogin = new System.Windows.Forms.Button();
             this.txtPass = new System.Windows.Forms.TextBox();
             this.txtUser = new System.Windows.Forms.TextBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -52,7 +52,7 @@
             this.panel1.Controls.Add(this.btnOcultarpsw);
             this.panel1.Controls.Add(this.btnVerpsw);
             this.panel1.Controls.Add(this.btnRegistro);
-            this.panel1.Controls.Add(this.btnScanners);
+            this.panel1.Controls.Add(this.btnLogin);
             this.panel1.Controls.Add(this.txtPass);
             this.panel1.Controls.Add(this.txtUser);
             this.panel1.Controls.Add(this.pictureBox2);
@@ -113,21 +113,21 @@
             this.btnRegistro.UseVisualStyleBackColor = false;
             this.btnRegistro.Click += new System.EventHandler(this.btnRegistro_Click);
             // 
-            // btnScanners
+            // btnLogin
             // 
-            this.btnScanners.BackColor = System.Drawing.Color.Transparent;
-            this.btnScanners.BackgroundImage = global::OCRVoteExtractor.Properties.Resources._5895d3becba9841eabab6082;
-            this.btnScanners.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnScanners.FlatAppearance.BorderSize = 0;
-            this.btnScanners.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnScanners.Location = new System.Drawing.Point(87, 345);
-            this.btnScanners.Margin = new System.Windows.Forms.Padding(2);
-            this.btnScanners.Name = "btnScanners";
-            this.btnScanners.Size = new System.Drawing.Size(131, 53);
-            this.btnScanners.TabIndex = 15;
-            this.btnScanners.Text = "Entrar";
-            this.btnScanners.UseVisualStyleBackColor = false;
-            this.btnScanners.Click += new System.EventHandler(this.btnScanners_Click);
+            this.btnLogin.BackColor = System.Drawing.Color.Transparent;
+            this.btnLogin.BackgroundImage = global::OCRVoteExtractor.Properties.Resources._5895d3becba9841eabab6082;
+            this.btnLogin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnLogin.FlatAppearance.BorderSize = 0;
+            this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLogin.Location = new System.Drawing.Point(87, 345);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(2);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(131, 53);
+            this.btnLogin.TabIndex = 15;
+            this.btnLogin.Text = "Entrar";
+            this.btnLogin.UseVisualStyleBackColor = false;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // txtPass
             // 
@@ -233,7 +233,7 @@
         private System.Windows.Forms.TextBox txtUser;
         private System.Windows.Forms.TextBox txtPass;
         private System.Windows.Forms.Button btnRegistro;
-        private System.Windows.Forms.Button btnScanners;
+        private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Button btnVerpsw;
         private System.Windows.Forms.Button btnOcultarpsw;
     }

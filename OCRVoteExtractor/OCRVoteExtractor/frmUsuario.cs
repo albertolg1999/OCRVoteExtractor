@@ -67,7 +67,7 @@ namespace OCRVoteExtractor
             frau = Owner as frmAdminUsuarios;
             var url = $"http://localhost:8080/app/guardar";
             var request = (HttpWebRequest)WebRequest.Create(url);
-            MessageBox.Show(request.ToString());
+            //MessageBox.Show(request.ToString());
             string json = $"{{\"user\":\"{user}\",\"psw\":\"{pass}\",\"cpsw\":\"{cpass}\",\"rol\":\"{rol}\"}}";
             request.Method = "POST";
             //\"id\":\"{id}\",
@@ -85,17 +85,27 @@ namespace OCRVoteExtractor
                 {
                     using (Stream strReader = response.GetResponseStream())
                     {
-                        if (strReader == null)
+                        MessageBox.Show(strReader.ToString());
+                        if (strReader ==null)
                         {
-                            MessageBox.Show("No insertado");
+                            MessageBox.Show("El usuario ya existe en la bd");
                         }
                         else
                         {
                             using (StreamReader objReader = new StreamReader(strReader))
                             {
                                 string responseBody = objReader.ReadToEnd();
-                                // Do something with responseBody
-                                MessageBox.Show("Insertado correctamente");
+                                if (responseBody != " ")
+                                {
+                                    // Do something with responseBody
+                                    MessageBox.Show(responseBody);
+                                    MessageBox.Show("Insertado correctamente");
+                                }
+                                else
+                                {
+                                    MessageBox.Show("El usuario ya existe en la bd");
+                                }
+                               
                             }
                         }
 
@@ -156,7 +166,7 @@ namespace OCRVoteExtractor
             catch (WebException ex)
             {
                 // Handle error
-                MessageBox.Show("El usuario ya existe en la bd");
+                //MessageBox.Show("El usuario ya existe en la bd");
             }
 
             this.frau.cargarDgv();

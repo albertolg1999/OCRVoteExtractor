@@ -26,13 +26,19 @@ namespace OCRVoteExtractor
         private void frmAdminUsuarios_Load(object sender, EventArgs e)
         {
             cargarDgv();
+            dgvUsuarios.Refresh();
         }
 
         public void cargarDgv()
         {
             listarUsuariosRol();
             dgvUsuarios.DataSource = lista.ToList();
-            dgvUsuarios.Columns.RemoveAt(dgvUsuarios.Columns.Count - 1);
+            dgvUsuarios.Columns[0].HeaderText = "Id Usuario";
+            dgvUsuarios.Columns[1].HeaderText = "Usuario";
+            dgvUsuarios.Columns[2].HeaderText = "Password";
+            dgvUsuarios.Columns[3].HeaderText = "Conf.Password";
+            dgvUsuarios.Columns[4].Visible = false;
+            //dgvUsuarios.Columns.RemoveAt(4);
             dgvUsuarios.Refresh();
             dgvUsuarios.Rows[0].Selected = true;
         }
@@ -66,7 +72,7 @@ namespace OCRVoteExtractor
                             }
                             else
                             {
-                                //MessageBox.Show("Usuario: " + user + " no existe, por favor registrese para acceder al sistema");
+                                MessageBox.Show("No existen usuarios con este rol","Información",MessageBoxButtons.OK,MessageBoxIcon.Information);
                             }
                             // Do something with responseBody
 
@@ -79,7 +85,7 @@ namespace OCRVoteExtractor
             }
             catch (WebException ex)
             {
-                MessageBox.Show("No existe.Debe registrarse");
+               // MessageBox.Show("No existe.Debe registrarse");
             }
 
         }
@@ -109,19 +115,26 @@ namespace OCRVoteExtractor
                 {
                     using (Stream strReader = response.GetResponseStream())
                     {
-                        if (strReader == null) return;
-                        using (StreamReader objReader = new StreamReader(strReader))
+                        if (strReader == null)
                         {
-                            string responseBody = objReader.ReadToEnd();
-                            // Do something with responseBody
-                            MessageBox.Show("Eliminado correctamente");
+                            MessageBox.Show("El usuario no existe actualmente en la bd");
                         }
+                        else
+                        {
+                            using (StreamReader objReader = new StreamReader(strReader))
+                            {
+                                string responseBody = objReader.ReadToEnd();
+                                // Do something with responseBody
+                                MessageBox.Show("Eliminado correctamente");
+                            }
+                        }
+                        
                     }
                 }
             }
             catch (WebException ex)
             {
-                MessageBox.Show("El usuario no existe actualmente en la bd");
+                //MessageBox.Show("El usuario no existe actualmente en la bd");
             }
         }
 

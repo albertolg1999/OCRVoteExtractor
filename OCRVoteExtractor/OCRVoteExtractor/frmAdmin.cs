@@ -61,5 +61,33 @@ namespace OCRVoteExtractor
         {
             Application.Exit();
         }
+
+        private void tsmiResultados_Click(object sender, EventArgs e)
+        {
+            if (this.MdiChildren.Length > 0)
+            {
+                if (this.MdiChildren[0].Name != "frmResultados")
+                {
+                    DialogResult rs = MessageBox.Show("¿Desea cerrar el formulario?", "Atención", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (rs == DialogResult.Yes)
+                    {
+                        this.MdiChildren[0].Close();
+                        frmResultados frr = new frmResultados();
+                        frr.MdiParent = this;
+                        frr.Dock = DockStyle.Fill;
+                        frr.Show();
+
+                    }
+                }
+            }
+            else
+            {
+
+                frmResultados frr = new frmResultados();
+                frr.MdiParent = this;
+                frr.Dock = DockStyle.Fill;
+                frr.Show();
+            }
+        }
     }
 }

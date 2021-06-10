@@ -48,7 +48,22 @@ namespace OCRVoteExtractor
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            CrearUsuario(txtUser.Text, txtPass.Text, txtCPass.Text,1);
+            if (txtUser.Text == "" || txtPass.Text == "" || txtCPass.Text == "")
+            {
+                MessageBox.Show("Rellene todos los campos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                if (txtPass.Text.ToLower().Equals(txtCPass.Text.ToLower()))
+                {
+                    CrearUsuario(txtUser.Text, txtPass.Text, txtCPass.Text, 1);
+                }
+                else
+                {
+                    MessageBox.Show("Las contraseñas no coinciden", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            
             
         }
 
@@ -60,7 +75,22 @@ namespace OCRVoteExtractor
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            ModificarUsuario(this.usu);
+            if (txtUser.Text == "" || txtPass.Text == "" || txtCPass.Text == "")
+            {
+                MessageBox.Show("Rellene todos los campos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                if (txtPass.Text.ToLower().Equals(txtCPass.Text.ToLower()))
+                {
+                    ModificarUsuario(this.usu);
+                }
+                else
+                {
+                    MessageBox.Show("Las contraseñas no coinciden", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            
         }
 
         private  void CrearUsuario(string user, string pass, string cpass, int rol)

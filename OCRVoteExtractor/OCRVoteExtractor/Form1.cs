@@ -485,10 +485,10 @@ namespace OCRVoteExtractor
                     this.res.Papeletas.Add(papeleta);
             }
 
-            MessageBox.Show(this.res.Papeletas[0].Representante+" "+ this.res.Papeletas[0].Representante);
+            //MessageBox.Show(this.res.Papeletas[0].Representante+" "+ this.res.Papeletas[0].Representante);
 
             resEnvio = JsonConvert.SerializeObject(res);
-            MessageBox.Show(res.Papeletas.Count.ToString());
+            //MessageBox.Show(res.Papeletas.Count.ToString());
             
             File.WriteAllText(Path.Combine(this.r.ruta_xml, "resultados.json"), JsonConvert.SerializeObject(res));
            
@@ -604,7 +604,7 @@ namespace OCRVoteExtractor
                                     if (responseBody != " ")
                                     {
                                         // Do something with responseBody
-                                        MessageBox.Show(responseBody);
+                                        //MessageBox.Show(responseBody);
                                         //MessageBox.Show("Insertado correctamente");
                                     }
                                     else

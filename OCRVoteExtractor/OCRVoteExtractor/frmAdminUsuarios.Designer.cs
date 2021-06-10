@@ -45,7 +45,7 @@
             this.dgvUsuarios.Name = "dgvUsuarios";
             this.dgvUsuarios.ReadOnly = true;
             this.dgvUsuarios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvUsuarios.Size = new System.Drawing.Size(685, 357);
+            this.dgvUsuarios.Size = new System.Drawing.Size(898, 381);
             this.dgvUsuarios.TabIndex = 19;
             // 
             // btnEliminar
@@ -55,7 +55,7 @@
             this.btnEliminar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnEliminar.FlatAppearance.BorderSize = 0;
             this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEliminar.Location = new System.Drawing.Point(506, 398);
+            this.btnEliminar.Location = new System.Drawing.Point(698, 403);
             this.btnEliminar.Margin = new System.Windows.Forms.Padding(2);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(145, 57);
@@ -71,7 +71,7 @@
             this.btnModicar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnModicar.FlatAppearance.BorderSize = 0;
             this.btnModicar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnModicar.Location = new System.Drawing.Point(282, 398);
+            this.btnModicar.Location = new System.Drawing.Point(402, 403);
             this.btnModicar.Margin = new System.Windows.Forms.Padding(2);
             this.btnModicar.Name = "btnModicar";
             this.btnModicar.Size = new System.Drawing.Size(145, 57);
@@ -87,7 +87,7 @@
             this.btnAñadir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnAñadir.FlatAppearance.BorderSize = 0;
             this.btnAñadir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAñadir.Location = new System.Drawing.Point(53, 398);
+            this.btnAñadir.Location = new System.Drawing.Point(83, 403);
             this.btnAñadir.Margin = new System.Windows.Forms.Padding(2);
             this.btnAñadir.Name = "btnAñadir";
             this.btnAñadir.Size = new System.Drawing.Size(145, 57);
@@ -100,7 +100,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(711, 471);
+            this.BackgroundImage = global::OCRVoteExtractor.Properties.Resources.bgcontrol;
+            this.ClientSize = new System.Drawing.Size(905, 471);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnModicar);
             this.Controls.Add(this.btnAñadir);

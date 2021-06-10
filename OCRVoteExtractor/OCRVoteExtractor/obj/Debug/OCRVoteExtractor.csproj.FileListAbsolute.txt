@@ -53,3 +53,5 @@ C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\
 C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\bin\Debug\Newtonsoft.Json.xml
 C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Debug\OCRVoteExtractor.frmAdminUsuarios.resources
 C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Debug\OCRVoteExtractor.frmUsuario.resources
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Debug\OCRVoteExtractor.csprojResolveAssemblyReference.cache
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Debug\OCRVoteExtractor.frmResultados.resources

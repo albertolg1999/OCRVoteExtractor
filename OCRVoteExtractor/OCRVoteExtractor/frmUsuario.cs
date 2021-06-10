@@ -54,7 +54,8 @@ namespace OCRVoteExtractor
 
         private void frmUsuario_Load(object sender, EventArgs e)
         {
-           
+            txtPass.PasswordChar = '*';
+            txtCPass.PasswordChar = '*';
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -170,6 +171,27 @@ namespace OCRVoteExtractor
             }
 
             this.frau.cargarDgv();
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
+        private void btnVerpsw_Click(object sender, EventArgs e)
+        {
+            btnVerpsw.Visible = false;
+            this.btnOcultar.Visible = true;
+            txtPass.PasswordChar = '\0';
+            txtCPass.PasswordChar = '\0';
+        }
+
+        private void btnOcultar_Click(object sender, EventArgs e)
+        {
+            btnVerpsw.Visible = true;
+            this.btnOcultar.Visible = false;
+            txtPass.PasswordChar = '*';
+            txtCPass.PasswordChar = '*';
         }
     }
 }

@@ -148,7 +148,6 @@
             // 
             this.btnEnviar.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnEnviar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnEnviar.Enabled = false;
             this.btnEnviar.FlatAppearance.BorderSize = 0;
             this.btnEnviar.Location = new System.Drawing.Point(419, 436);
             this.btnEnviar.Margin = new System.Windows.Forms.Padding(2);

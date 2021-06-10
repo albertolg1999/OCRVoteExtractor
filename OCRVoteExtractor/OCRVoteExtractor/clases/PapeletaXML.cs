@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OCRVoteExtractor.clases
 {
-    [JsonObject(Title ="papeleta")]
+    //[JsonObject(Title ="papeleta")]
     public class PapeletaXML
     {
         [JsonProperty("representante")]

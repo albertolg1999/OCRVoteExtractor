@@ -34,7 +34,7 @@ namespace OCRVoteExtractor
 
         
          
-public static int invertirYBuscarRol(char[] normal)
+        public static int invertirYBuscarRol(char[] normal)
         {
             string invert = "";
             for(int i = normal.Length - 1; i > 0; i--)

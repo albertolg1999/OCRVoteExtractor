@@ -35,7 +35,7 @@
             this.txtCPass = new System.Windows.Forms.TextBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.btnNuevo = new System.Windows.Forms.Button();
-            this.btnScanners = new System.Windows.Forms.Button();
+            this.btnVolver = new System.Windows.Forms.Button();
             this.txtPass = new System.Windows.Forms.TextBox();
             this.txtUser = new System.Windows.Forms.TextBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -43,6 +43,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblModificar = new System.Windows.Forms.Label();
             this.btnModificar = new System.Windows.Forms.Button();
+            this.btnOcultar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -79,13 +80,13 @@
             this.btnVerpsw.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnVerpsw.FlatAppearance.BorderSize = 0;
             this.btnVerpsw.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVerpsw.Location = new System.Drawing.Point(353, 120);
+            this.btnVerpsw.Location = new System.Drawing.Point(378, 246);
             this.btnVerpsw.Margin = new System.Windows.Forms.Padding(2);
             this.btnVerpsw.Name = "btnVerpsw";
             this.btnVerpsw.Size = new System.Drawing.Size(27, 25);
             this.btnVerpsw.TabIndex = 22;
             this.btnVerpsw.UseVisualStyleBackColor = false;
-            this.btnVerpsw.Visible = false;
+            this.btnVerpsw.Click += new System.EventHandler(this.btnVerpsw_Click);
             // 
             // btnOcultarpsw
             // 
@@ -139,20 +140,21 @@
             this.btnNuevo.UseVisualStyleBackColor = false;
             this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
-            // btnScanners
+            // btnVolver
             // 
-            this.btnScanners.BackColor = System.Drawing.Color.Transparent;
-            this.btnScanners.BackgroundImage = global::OCRVoteExtractor.Properties.Resources._5895d3becba9841eabab6082;
-            this.btnScanners.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnScanners.FlatAppearance.BorderSize = 0;
-            this.btnScanners.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnScanners.Location = new System.Drawing.Point(74, 347);
-            this.btnScanners.Margin = new System.Windows.Forms.Padding(2);
-            this.btnScanners.Name = "btnScanners";
-            this.btnScanners.Size = new System.Drawing.Size(131, 53);
-            this.btnScanners.TabIndex = 28;
-            this.btnScanners.Text = "Volver";
-            this.btnScanners.UseVisualStyleBackColor = false;
+            this.btnVolver.BackColor = System.Drawing.Color.Transparent;
+            this.btnVolver.BackgroundImage = global::OCRVoteExtractor.Properties.Resources._5895d3becba9841eabab6082;
+            this.btnVolver.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnVolver.FlatAppearance.BorderSize = 0;
+            this.btnVolver.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVolver.Location = new System.Drawing.Point(74, 347);
+            this.btnVolver.Margin = new System.Windows.Forms.Padding(2);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(131, 53);
+            this.btnVolver.TabIndex = 28;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = false;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // txtPass
             // 
@@ -235,18 +237,35 @@
             this.btnModificar.UseVisualStyleBackColor = false;
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
+            // btnOcultar
+            // 
+            this.btnOcultar.BackColor = System.Drawing.Color.Transparent;
+            this.btnOcultar.BackgroundImage = global::OCRVoteExtractor.Properties.Resources.hide_icon_153458;
+            this.btnOcultar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnOcultar.FlatAppearance.BorderSize = 0;
+            this.btnOcultar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOcultar.Location = new System.Drawing.Point(378, 245);
+            this.btnOcultar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnOcultar.Name = "btnOcultar";
+            this.btnOcultar.Size = new System.Drawing.Size(27, 25);
+            this.btnOcultar.TabIndex = 34;
+            this.btnOcultar.UseVisualStyleBackColor = false;
+            this.btnOcultar.Visible = false;
+            this.btnOcultar.Click += new System.EventHandler(this.btnOcultar_Click);
+            // 
             // frmUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::OCRVoteExtractor.Properties.Resources.bgcontrol;
             this.ClientSize = new System.Drawing.Size(459, 436);
+            this.Controls.Add(this.btnOcultar);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.lblModificar);
             this.Controls.Add(this.txtCPass);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.btnNuevo);
-            this.Controls.Add(this.btnScanners);
+            this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.txtPass);
             this.Controls.Add(this.txtUser);
             this.Controls.Add(this.pictureBox2);
@@ -256,7 +275,9 @@
             this.Controls.Add(this.btnOcultarpsw);
             this.Controls.Add(this.lblNuevo);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmUsuario";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmUsuario";
             this.Load += new System.EventHandler(this.frmUsuario_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
@@ -276,7 +297,7 @@
         private System.Windows.Forms.TextBox txtCPass;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Button btnNuevo;
-        private System.Windows.Forms.Button btnScanners;
+        private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.TextBox txtPass;
         private System.Windows.Forms.TextBox txtUser;
         private System.Windows.Forms.PictureBox pictureBox2;
@@ -284,5 +305,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lblModificar;
         private System.Windows.Forms.Button btnModificar;
+        private System.Windows.Forms.Button btnOcultar;
     }
 }

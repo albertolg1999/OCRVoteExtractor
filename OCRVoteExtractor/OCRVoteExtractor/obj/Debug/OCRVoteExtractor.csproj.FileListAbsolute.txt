@@ -48,7 +48,6 @@ C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\
 C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\bin\Debug\TwainDotNet.dll
 C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\bin\Debug\TwainDotNet.WinFroms.dll
 C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\bin\Debug\TwainDotNet.Wpf.dll
-C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Debug\OCRVoteExtractor.csprojResolveAssemblyReference.cache
 C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Debug\OCRVoteExtractor.frmAdmin.resources
 C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\bin\Debug\Newtonsoft.Json.dll
 C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\bin\Debug\Newtonsoft.Json.xml

@@ -21,6 +21,7 @@ namespace OCRVoteExtractor
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
         }
+        
 
         private void btnRegistro_Click(object sender, EventArgs e)
         {
@@ -110,6 +111,7 @@ namespace OCRVoteExtractor
             btnVerpsw.Visible = false;
             this.btnOcultarpsw.Visible = true;
             txtPass.PasswordChar = '\0';
+            txtCPass.PasswordChar = '\0';
         }
 
         private void btnOcultarpsw_Click(object sender, EventArgs e)
@@ -117,12 +119,24 @@ namespace OCRVoteExtractor
             btnVerpsw.Visible = true;
             this.btnOcultarpsw.Visible = false;
             txtPass.PasswordChar = '*';
+            txtCPass.PasswordChar = '*';
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
             this.fl.Show();
             this.Hide();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+            
+        }
+
+        private void frmRegistro_Load(object sender, EventArgs e)
+        {
+            txtPass.PasswordChar = '*';
+            txtCPass.PasswordChar = '*';
         }
     }
     

@@ -65,10 +65,11 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(-1, 0);
+            this.panel1.Location = new System.Drawing.Point(-1, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(476, 477);
+            this.panel1.Size = new System.Drawing.Size(476, 475);
             this.panel1.TabIndex = 1;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // btnVerpsw
             // 
@@ -83,7 +84,6 @@
             this.btnVerpsw.Size = new System.Drawing.Size(27, 25);
             this.btnVerpsw.TabIndex = 20;
             this.btnVerpsw.UseVisualStyleBackColor = false;
-            this.btnVerpsw.Visible = false;
             this.btnVerpsw.Click += new System.EventHandler(this.btnVerpsw_Click);
             // 
             // btnOcultarpsw
@@ -240,6 +240,7 @@
             this.Name = "frmRegistro";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmRegistro";
+            this.Load += new System.EventHandler(this.frmRegistro_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();

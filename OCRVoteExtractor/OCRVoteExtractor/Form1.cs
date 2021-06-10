@@ -28,6 +28,7 @@ namespace OCRVoteExtractor
 
         
         Rutas r;
+        Resultados res = new Resultados();
         List<Papeleta> Papeletas;
         String resEnvio=null;
         Papeleta papeleta;
@@ -458,7 +459,7 @@ namespace OCRVoteExtractor
 
         private void GuardarResultado()
         {
-            Resultados res = new Resultados();
+            
             for (int i = 0; i < Papeletas.Count; i++)
             {
                 PapeletaXML papeleta = new PapeletaXML();
@@ -481,11 +482,14 @@ namespace OCRVoteExtractor
                 }
 
                 if (!string.IsNullOrEmpty(papeleta.Nombre) && !string.IsNullOrEmpty(papeleta.Representante))
-                    res.Papeletas.Add(papeleta);
+                    this.res.Papeletas.Add(papeleta);
             }
-            resEnvio=JsonConvert.SerializeObject(res);
-            MessageBox.Show(res.Papeletas.Count.ToString());
 
+            MessageBox.Show(this.res.Papeletas[0].Representante+" "+ this.res.Papeletas[0].Representante);
+
+            resEnvio = JsonConvert.SerializeObject(res);
+            MessageBox.Show(res.Papeletas.Count.ToString());
+            
             File.WriteAllText(Path.Combine(this.r.ruta_xml, "resultados.json"), JsonConvert.SerializeObject(res));
            
             MessageBox.Show("Resultados guardados en el json correctamente. Votación terminada!!");
@@ -561,63 +565,125 @@ namespace OCRVoteExtractor
             oGdPictureImaging.TwainCloseSourceManager(this.Handle);
         }
 
+
         private void enviarResultados()
         {
-
-            var url = $"http://localhost:8080/app/votos";
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            //MessageBox.Show(request.ToString());
-            //string json = $"{{\"user\":\"{user}\",\"psw\":\"{pass}\",\"cpsw\":\"{cpass}\",\"rol\":\"{rol}\"}}";
-            request.Method = "POST";
-            //\"id\":\"{id}\",
-            request.ContentType = "application/json";
-            request.Accept = "application/json";
-            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            for(int i = 0; i < this.res.Papeletas.Count; i++)
             {
-                streamWriter.Write(this.resEnvio);
-                streamWriter.Flush();
-                streamWriter.Close();
-            }
-            try
-            {
-                using (WebResponse response = request.GetResponse())
+                MessageBox.Show(i + " de " + this.res.Papeletas.Count);
+                var url = $"http://localhost:8080/app/subirVotos/{this.res.Papeletas[i].Representante}";
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                //MessageBox.Show(request.ToString());
+                 //string json = $"{{\"representante\":\"{this.res.Papeletas[0].Representante}\"}}";
+                request.Method = "PUT";
+                //\"id\":\"{id}\",
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                //using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                //{
+                //    streamWriter.Write(json);
+                //    streamWriter.Flush();
+                //    streamWriter.Close();
+                //}
+                try
                 {
-                    using (Stream strReader = response.GetResponseStream())
+                    using (WebResponse response = request.GetResponse())
                     {
-                        MessageBox.Show(strReader.ToString());
-                        if (strReader == null)
+                        using (Stream strReader = response.GetResponseStream())
                         {
-                            MessageBox.Show("El usuario ya existe en la bd");
-                        }
-                        else
-                        {
-                            using (StreamReader objReader = new StreamReader(strReader))
+                            MessageBox.Show(strReader.ToString());
+                            if (strReader == null)
                             {
-                                string responseBody = objReader.ReadToEnd();
-                                if (responseBody != " ")
-                                {
-                                    // Do something with responseBody
-                                    MessageBox.Show(responseBody);
-                                    MessageBox.Show("Insertado correctamente");
-                                }
-                                else
-                                {
-                                    MessageBox.Show("El usuario ya existe en la bd");
-                                }
-
+                                //MessageBox.Show("El usuario ya existe en la bd");
                             }
-                        }
+                            else
+                            {
+                                using (StreamReader objReader = new StreamReader(strReader))
+                                {
+                                    string responseBody = objReader.ReadToEnd();
+                                    if (responseBody != " ")
+                                    {
+                                        // Do something with responseBody
+                                        MessageBox.Show(responseBody);
+                                        //MessageBox.Show("Insertado correctamente");
+                                    }
+                                    else
+                                    {
+                                        //MessageBox.Show("El usuario ya existe en la bd");
+                                    }
 
+                                }
+                            }
+
+                        }
                     }
                 }
-            }
-            catch (WebException ex)
-            {
-                // Handle error
-                MessageBox.Show("El usuario ya existe en la bd");
+                catch (WebException ex)
+                {
+                    // Handle error
+                    //MessageBox.Show("El usuario ya existe en la bd");
+                }
             }
 
             
         }
+        //private void enviarResultados()
+        //{
+
+        //    var url = $"http://localhost:8080/app/votos";
+        //    var request = (HttpWebRequest)WebRequest.Create(url);
+        //    //MessageBox.Show(request.ToString());
+        //   // string json = $"{{\"representante\":\"{user}\",\"psw\":\"{pass}\"}}";
+        //    request.Method = "POST";
+        //    //\"id\":\"{id}\",
+        //    request.ContentType = "application/json";
+        //    request.Accept = "application/json";
+        //    using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+        //    {
+        //        streamWriter.Write(this.resEnvio);
+        //        streamWriter.Flush();
+        //        streamWriter.Close();
+        //    }
+        //    try
+        //    {
+        //        using (WebResponse response = request.GetResponse())
+        //        {
+        //            using (Stream strReader = response.GetResponseStream())
+        //            {
+        //                MessageBox.Show(strReader.ToString());
+        //                if (strReader == null)
+        //                {
+        //                    //MessageBox.Show("El usuario ya existe en la bd");
+        //                }
+        //                else
+        //                {
+        //                    using (StreamReader objReader = new StreamReader(strReader))
+        //                    {
+        //                        string responseBody = objReader.ReadToEnd();
+        //                        if (responseBody != " ")
+        //                        {
+        //                            // Do something with responseBody
+        //                            MessageBox.Show(responseBody);
+        //                            //MessageBox.Show("Insertado correctamente");
+        //                        }
+        //                        else
+        //                        {
+        //                            //MessageBox.Show("El usuario ya existe en la bd");
+        //                        }
+
+        //                    }
+        //                }
+
+        //            }
+        //        }
+        //    }
+        //    catch (WebException ex)
+        //    {
+        //        // Handle error
+        //        //MessageBox.Show("El usuario ya existe en la bd");
+        //    }
+
+            
+        //}
     }
 }

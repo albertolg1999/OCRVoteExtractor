@@ -371,7 +371,7 @@ namespace OCRVoteExtractor
         {
            
             try {
-               // Escanear();
+                Escanear();
                 Papeletas = new List<Papeleta>();
                 listBox1.Items.Clear();
 
@@ -447,6 +447,7 @@ namespace OCRVoteExtractor
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             Image<Bgr, Byte> img_original = new Image<Bgr, Byte>(ruta_papeletas + "\\" + listBox1.Items[listBox1.SelectedIndex].ToString());
             pictureBox1.Image = img_original.ToBitmap();
         }
@@ -570,7 +571,7 @@ namespace OCRVoteExtractor
         {
             for(int i = 0; i < this.res.Papeletas.Count; i++)
             {
-                MessageBox.Show(i + " de " + this.res.Papeletas.Count);
+                //MessageBox.Show(i + " de " + this.res.Papeletas.Count);
                 var url = $"http://localhost:8080/app/subirVotos/{this.res.Papeletas[i].Representante}";
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 //MessageBox.Show(request.ToString());
@@ -579,19 +580,14 @@ namespace OCRVoteExtractor
                 //\"id\":\"{id}\",
                 request.ContentType = "application/json";
                 request.Accept = "application/json";
-                //using (var streamWriter = new StreamWriter(request.GetRequestStream()))
-                //{
-                //    streamWriter.Write(json);
-                //    streamWriter.Flush();
-                //    streamWriter.Close();
-                //}
+                
                 try
                 {
                     using (WebResponse response = request.GetResponse())
                     {
                         using (Stream strReader = response.GetResponseStream())
                         {
-                            MessageBox.Show(strReader.ToString());
+                           // MessageBox.Show(strReader.ToString());
                             if (strReader == null)
                             {
                                 //MessageBox.Show("El usuario ya existe en la bd");
@@ -623,6 +619,8 @@ namespace OCRVoteExtractor
                     // Handle error
                     //MessageBox.Show("El usuario ya existe en la bd");
                 }
+                label2.Text = "Resultados Subidos a la BD...";
+                this.btnEnviar.Enabled = false;
             }
 
             

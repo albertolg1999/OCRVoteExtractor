@@ -173,6 +173,16 @@ namespace OCRVoteExtractor.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap scanner_PNG11368 {
+            get {
+                object obj = ResourceManager.GetObject("scanner_PNG11368", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap show_icon_153436 {
             get {
                 object obj = ResourceManager.GetObject("show_icon_153436", resourceCulture);

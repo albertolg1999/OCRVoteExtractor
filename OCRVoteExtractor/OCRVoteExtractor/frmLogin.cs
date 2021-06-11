@@ -71,7 +71,7 @@ namespace OCRVoteExtractor
                                 if (responseBody.Length > 0)
                                 {
                                     char[] normal = responseBody.ToCharArray();
-                                    MessageBox.Show("Usuario: " + user + ", se ha logeado correctamente");
+                                    //MessageBox.Show("Usuario: " + user + ", se ha logeado correctamente");
                                     if (invertirYBuscarRol(normal) == 1)
                                     {
                                         Form1 f = new Form1();

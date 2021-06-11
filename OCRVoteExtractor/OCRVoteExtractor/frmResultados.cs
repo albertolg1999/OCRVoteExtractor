@@ -51,52 +51,58 @@ namespace OCRVoteExtractor
         }
         private void listarResultados()
         {
-
-            int rol = 1;
-            var url = $"http://localhost:8080/app/resultados";
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-            request.ContentType = "application/json";
-            request.Accept = "application/json";
-            try
-            {
-                using (WebResponse response = request.GetResponse())
+            try {
+                int rol = 1;
+                var url = $"http://localhost:8080/app/resultados";
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "GET";
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                try
                 {
-                    using (Stream strReader = response.GetResponseStream())
+                    using (WebResponse response = request.GetResponse())
                     {
-                        if (strReader == null) return;
-                        using (StreamReader objReader = new StreamReader(strReader))
+                        using (Stream strReader = response.GetResponseStream())
                         {
-                            string responseBody = objReader.ReadToEnd();
-                            //MessageBox.Show(responseBody.Length.ToString());
-                            if (responseBody.Length > 0)
+                            if (strReader == null) return;
+                            using (StreamReader objReader = new StreamReader(strReader))
                             {
-                                //char[] normal = responseBody.ToCharArray();
-                                //MessageBox.Show(responseBody);
+                                string responseBody = objReader.ReadToEnd();
+                                //MessageBox.Show(responseBody.Length.ToString());
+                                if (responseBody.Length > 0)
+                                {
+                                    //char[] normal = responseBody.ToCharArray();
+                                    //MessageBox.Show(responseBody);
 
-                                this.lista = JsonConvert.DeserializeObject<List<Representantes_Votos>>(responseBody);
-                                MessageBox.Show(this.lista.Count.ToString());
+                                    this.lista = JsonConvert.DeserializeObject<List<Representantes_Votos>>(responseBody);
+                                    //MessageBox.Show(this.lista.Count.ToString());
+
+                                }
+                                else
+                                {
+                                    //MessageBox.Show("No existen usuarios con este rol", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                // Do something with responseBody
+
 
                             }
-                            else
-                            {
-                                //MessageBox.Show("No existen usuarios con este rol", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                            // Do something with responseBody
-
-
                         }
+
                     }
 
                 }
+                catch (WebException ex)
+                {
+                    // MessageBox.Show("No existe.Debe registrarse");
+                }
 
+                cargarResultados();
             }
             catch (WebException ex)
             {
-                // MessageBox.Show("No existe.Debe registrarse");
+                MessageBox.Show("No existe conexion con el servidor", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            cargarResultados();
 
         }
 

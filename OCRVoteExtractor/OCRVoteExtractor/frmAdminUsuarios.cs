@@ -44,49 +44,55 @@ namespace OCRVoteExtractor
         }
         private void listarUsuariosRol()
         {
-
-            int rol = 1;
-            var url = $"http://localhost:8080/app/usuarios/{rol}";
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-            request.ContentType = "application/json";
-            request.Accept = "application/json";
-            try
-            {
-                using (WebResponse response = request.GetResponse())
+            try {
+                int rol = 1;
+                var url = $"http://localhost:8080/app/usuarios/{rol}";
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "GET";
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                try
                 {
-                    using (Stream strReader = response.GetResponseStream())
+                    using (WebResponse response = request.GetResponse())
                     {
-                        if (strReader == null) return;
-                        using (StreamReader objReader = new StreamReader(strReader))
+                        using (Stream strReader = response.GetResponseStream())
                         {
-                            string responseBody = objReader.ReadToEnd();
-                            //MessageBox.Show(responseBody.Length.ToString());
-                            if (responseBody.Length > 0)
+                            if (strReader == null) return;
+                            using (StreamReader objReader = new StreamReader(strReader))
                             {
-                                //char[] normal = responseBody.ToCharArray();
-                                //MessageBox.Show(responseBody);
+                                string responseBody = objReader.ReadToEnd();
+                                //MessageBox.Show(responseBody.Length.ToString());
+                                if (responseBody.Length > 0)
+                                {
+                                    //char[] normal = responseBody.ToCharArray();
+                                    //MessageBox.Show(responseBody);
 
-                                this.lista = JsonConvert.DeserializeObject<List<Usuario>>(responseBody);
-                                
+                                    this.lista = JsonConvert.DeserializeObject<List<Usuario>>(responseBody);
+
+                                }
+                                else
+                                {
+                                    MessageBox.Show("No existen usuarios con este rol", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                // Do something with responseBody
+
+
                             }
-                            else
-                            {
-                                MessageBox.Show("No existen usuarios con este rol","Información",MessageBoxButtons.OK,MessageBoxIcon.Information);
-                            }
-                            // Do something with responseBody
-
-
                         }
+
                     }
 
                 }
-
+                catch (WebException ex)
+                {
+                    // MessageBox.Show("No existe.Debe registrarse");
+                }
             }
             catch (WebException ex)
             {
-               // MessageBox.Show("No existe.Debe registrarse");
+                MessageBox.Show("No existe conexion con el servidor", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            
 
         }
 
@@ -104,38 +110,46 @@ namespace OCRVoteExtractor
 
         private static void DeleteUsuario(int id)
         {
-            var url = $"http://localhost:8080/app/delete/{id}";
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "DELETE";
-            request.ContentType = "application/json";
-            request.Accept = "application/json";
             try
             {
-                using (WebResponse response = request.GetResponse())
+                var url = $"http://localhost:8080/app/delete/{id}";
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "DELETE";
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                try
                 {
-                    using (Stream strReader = response.GetResponseStream())
+                    using (WebResponse response = request.GetResponse())
                     {
-                        if (strReader == null)
+                        using (Stream strReader = response.GetResponseStream())
                         {
-                            MessageBox.Show("El usuario no existe actualmente en la bd");
-                        }
-                        else
-                        {
-                            using (StreamReader objReader = new StreamReader(strReader))
+                            if (strReader == null)
                             {
-                                string responseBody = objReader.ReadToEnd();
-                                // Do something with responseBody
-                                MessageBox.Show("Eliminado correctamente");
+                                MessageBox.Show("El usuario no existe actualmente en la bd");
                             }
+                            else
+                            {
+                                using (StreamReader objReader = new StreamReader(strReader))
+                                {
+                                    string responseBody = objReader.ReadToEnd();
+                                    // Do something with responseBody
+                                    MessageBox.Show("Eliminado correctamente");
+                                }
+                            }
+
                         }
-                        
                     }
+                }
+                catch (WebException ex)
+                {
+                    //MessageBox.Show("El usuario no existe actualmente en la bd");
                 }
             }
             catch (WebException ex)
             {
-                //MessageBox.Show("El usuario no existe actualmente en la bd");
+                MessageBox.Show("No existe conexion con el servidor", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+           
         }
 
         private void btnAñadir_Click(object sender, EventArgs e)

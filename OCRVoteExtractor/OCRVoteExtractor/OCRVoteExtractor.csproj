@@ -37,15 +37,15 @@
   <ItemGroup>
     <Reference Include="Emgu.CV.UI, Version=4.1.0.3420, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Downloads\OCRVoteExtractor-main (1)\OCRVoteExtractor-main\OCRVoteExtractor\OCRVoteExtractor\bin\Debug\Emgu.CV.UI.dll</HintPath>
+      <HintPath>bin\Debug\Emgu.CV.UI.dll</HintPath>
     </Reference>
     <Reference Include="Emgu.CV.World, Version=4.1.0.3420, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Downloads\OCRVoteExtractor-main (1)\OCRVoteExtractor-main\OCRVoteExtractor\OCRVoteExtractor\bin\Debug\Emgu.CV.World.dll</HintPath>
+      <HintPath>bin\Debug\Emgu.CV.World.dll</HintPath>
     </Reference>
     <Reference Include="GdPicture.NET.10, Version=10.0.0.14, Culture=neutral, PublicKeyToken=8e813b3278cff6ae, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Downloads\OCRVoteExtractor-main (1)\OCRVoteExtractor-main\OCRVoteExtractor\OCRVoteExtractor\bin\Debug\GdPicture.NET.10.dll</HintPath>
+      <HintPath>bin\Debug\GdPicture.NET.10.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\TwainDotNet.1.0.0\lib\log4net.dll</HintPath>
@@ -219,6 +219,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\estadisticas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scanner_PNG11368.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

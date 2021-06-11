@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.chrtresultados = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnExportar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chrtresultados)).BeginInit();
@@ -37,10 +37,10 @@
             // 
             // chrtresultados
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chrtresultados.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chrtresultados.Legends.Add(legend3);
+            chartArea1.Name = "ChartArea1";
+            this.chrtresultados.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chrtresultados.Legends.Add(legend1);
             this.chrtresultados.Location = new System.Drawing.Point(12, 12);
             this.chrtresultados.Name = "chrtresultados";
             this.chrtresultados.Size = new System.Drawing.Size(898, 391);
@@ -54,7 +54,7 @@
             this.btnExportar.FlatAppearance.BorderSize = 0;
             this.btnExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExportar.ForeColor = System.Drawing.Color.Black;
-            this.btnExportar.Location = new System.Drawing.Point(466, 417);
+            this.btnExportar.Location = new System.Drawing.Point(427, 417);
             this.btnExportar.Margin = new System.Windows.Forms.Padding(2);
             this.btnExportar.Name = "btnExportar";
             this.btnExportar.Size = new System.Drawing.Size(131, 53);

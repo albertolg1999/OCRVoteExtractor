@@ -79,7 +79,7 @@ namespace OCRVoteExtractor
                                     string responseBody = objReader.ReadToEnd();
                                     if(responseBody!= "Usuario insertado correctamente")
                                     {
-                                        MessageBox.Show("El usuario ya existe en la bd");
+                                        MessageBox.Show("El usuario ya existe en la bd","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
                                     }
                                     else
                                     {

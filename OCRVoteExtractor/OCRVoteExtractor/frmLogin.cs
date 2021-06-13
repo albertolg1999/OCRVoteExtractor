@@ -96,7 +96,7 @@ namespace OCRVoteExtractor
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Este usuario existe o nolos datos no son corrects, por favor compruebelos o sino registrese para acceder al sistema", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    MessageBox.Show("Este usuario existe o los datos no son correctos, por favor compruebelos o sino registrese para acceder al sistema", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                                 // Do something with responseBody
 

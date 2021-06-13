@@ -32,7 +32,7 @@ namespace OCRVoteExtractor
         List<Papeleta> Papeletas;
         String resEnvio=null;
         Papeleta papeleta;
-        String ruta_papeletas = "C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\papeletas";
+       // String ruta_papeletas = "C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\papeletas";
         int xT, yT;
         public GdPictureImaging oGdPictureImaging = new GdPictureImaging();
         public Form1()
@@ -90,13 +90,13 @@ namespace OCRVoteExtractor
             CvInvoke.Erode(uimage, uimage, element, new Point(-1, -1), 1, BorderType.Default, default(MCvScalar));
 
             //CvInvoke.Dilate(uimage, uimage, element, new Point(-1, -1),2, BorderType.Reflect, default(MCvScalar));
-            uimage.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada_erode.png");
+            uimage.Save(this.r.rc_imag + "\\guardada_erode.png");
             // CvInvoke.PyrDown(uimage, pyrDown);
             // CvInvoke.PyrUp(pyrDown, uimage);
             //CvInvoke.Threshold(uimage, uimage, 50, 255, ThresholdType.Binary);
 
             CvInvoke.Canny(uimage, cannyEdges, 100, 250);
-            cannyEdges.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada_canny.png");
+            cannyEdges.Save(this.r.rc_imag+"\\guardada_canny.png");
 
             VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint();
 
@@ -327,7 +327,7 @@ namespace OCRVoteExtractor
                 Papeletas = new List<Papeleta>();
                 listBox1.Items.Clear();
 
-                foreach (String folder in Directory.GetFiles(ruta_papeletas))
+                foreach (String folder in Directory.GetFiles(this.r.ruta_papeletas))
                 {
                     //listBox1.Sorted = false;
                     listBox1.Items.Add(Path.GetFileName(folder));
@@ -342,7 +342,7 @@ namespace OCRVoteExtractor
                
                 
 
-                Image<Bgr, Byte> img_original = new Image<Bgr, Byte>(ruta_papeletas + "\\" + listBox1.Items[0].ToString());
+                Image<Bgr, Byte> img_original = new Image<Bgr, Byte>(this.r.ruta_papeletas + "\\" + listBox1.Items[0].ToString());
                 pictureBox1.Image = img_original.ToBitmap();
                 //listBox1.SelectedIndex = 0;
 
@@ -408,7 +408,7 @@ namespace OCRVoteExtractor
         {
             if (listBox1.SelectedIndex != -1)
             {
-                Image<Bgr, Byte> img_original = new Image<Bgr, Byte>(ruta_papeletas + "\\" + listBox1.Items[listBox1.SelectedIndex].ToString());
+                Image<Bgr, Byte> img_original = new Image<Bgr, Byte>(this.r.ruta_papeletas + "\\" + listBox1.Items[listBox1.SelectedIndex].ToString());
                 pictureBox1.Image = img_original.ToBitmap();
             }
             

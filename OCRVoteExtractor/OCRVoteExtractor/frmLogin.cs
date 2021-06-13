@@ -29,10 +29,15 @@ namespace OCRVoteExtractor
             r.Show();
             this.Hide();
             
+            
 
         }
 
-        
+        public void limpiarCampos()
+        {
+            txtUser.Text = "";
+            txtPass.Text="";
+        }
          
         public static int invertirYBuscarRol(char[] normal)
         {
@@ -77,6 +82,7 @@ namespace OCRVoteExtractor
                                         Form1 f = new Form1();
                                         f.Show();
                                         fl.Hide();
+                                        
                                     }
                                     else
                                     {
@@ -90,7 +96,7 @@ namespace OCRVoteExtractor
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Usuario: " + user + " no existe o no es la contraseña correcta, por favor registrese para acceder al sistema o compruebe sus credenciales", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    MessageBox.Show("Este usuario existe o nolos datos no son corrects, por favor compruebelos o sino registrese para acceder al sistema", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                                 // Do something with responseBody
 

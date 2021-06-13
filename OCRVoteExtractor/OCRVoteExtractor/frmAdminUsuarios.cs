@@ -38,9 +38,19 @@ namespace OCRVoteExtractor
             dgvUsuarios.Columns[2].HeaderText = "Password";
             dgvUsuarios.Columns[3].HeaderText = "Conf.Password";
             dgvUsuarios.Columns[4].Visible = false;
-            //dgvUsuarios.Columns.RemoveAt(4);
             dgvUsuarios.Refresh();
-            dgvUsuarios.Rows[0].Selected = true;
+            
+            if (this.lista.Count == 0) {
+                btnEliminar.Enabled = false;
+                btnModicar.Enabled = false;
+            }
+            else
+            {
+                dgvUsuarios.Rows[0].Selected = true;
+            }
+            //dgvUsuarios.Columns.RemoveAt(4);
+            
+            
         }
         private void listarUsuariosRol()
         {

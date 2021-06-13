@@ -93,6 +93,7 @@ namespace OCRVoteExtractor
             
         }
 
+        //Método para realizar peticion post al servidor para insertar un nuevo usuario
         private  void CrearUsuario(string user, string pass, string cpass, int rol)
         {
             frau = Owner as frmAdminUsuarios;
@@ -120,23 +121,22 @@ namespace OCRVoteExtractor
                             MessageBox.Show(strReader.ToString());
                             if (strReader == null)
                             {
-                                MessageBox.Show("El usuario ya existe en la bd");
+
                             }
                             else
                             {
                                 using (StreamReader objReader = new StreamReader(strReader))
                                 {
                                     string responseBody = objReader.ReadToEnd();
-                                    if (responseBody != " ")
-                                    {
-                                        // Do something with responseBody
-                                        MessageBox.Show(responseBody);
-                                        MessageBox.Show("Insertado correctamente");
-                                    }
-                                    else
+                                    if (responseBody != "Usuario insertado correctamente")
                                     {
                                         MessageBox.Show("El usuario ya existe en la bd");
                                     }
+                                    else
+                                    {
+                                        MessageBox.Show("Insertado correctamente");
+                                    }
+                                    // Do something with responseBody
 
                                 }
                             }
@@ -147,7 +147,7 @@ namespace OCRVoteExtractor
                 catch (WebException ex)
                 {
                     // Handle error
-                    MessageBox.Show("El usuario ya existe en la bd");
+                   // MessageBox.Show("El usuario ya existe en la bd");
                 }
 
                 this.frau.cargarDgv();
@@ -159,6 +159,7 @@ namespace OCRVoteExtractor
             
         }
 
+        //Método para realizar peticion put al servidor para modificar un usuario
         private void ModificarUsuario(Usuario usu)
         {
 

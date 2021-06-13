@@ -63,13 +63,18 @@ namespace OCRVoteExtractor
             //}
         }
         
+        //Metodo para pintar cuadros
         public Papeleta pintarCuadros(Rectangle r,int k, Papeleta p)
         {
             // detectar si hay cuadrados
-
+            //Cogemos la imagen de la papeleta actual que hay para procesar en el picturebox
             Image<Bgr, Byte> img = new Image<Bgr, byte>((Bitmap)pictureBox1.Image);
+
+            //hacemos un roi, que es recortar la zona de la imagen donde se ha marcado la zona donde estará la casilla del voto
             img.ROI = new Rectangle(r.X, r.Y, r.Width, r.Height);
             UMat uimage = new UMat();
+
+            //Lo pasamos a escala de grises para luego ver si esta votado o no
             CvInvoke.CvtColor(img, uimage, ColorConversion.Bgr2Gray);
             UMat pyrDown = new UMat();
             UMat cannyEdges = new UMat();
@@ -95,12 +100,14 @@ namespace OCRVoteExtractor
 
             VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint();
 
+            //buscamos los contornos
             CvInvoke.FindContours(cannyEdges, contours, null, RetrType.List, ChainApproxMethod.ChainApproxSimple);
 
             double maxArea = 0;
             Rectangle rect = Rectangle.Empty;
             int blackQty = 0;
 
+            //recorremos los contornos
             for (int i = 0; i < contours.Size; i++)
             {
                 VectorOfPoint contour = contours[i];
@@ -109,22 +116,27 @@ namespace OCRVoteExtractor
 
                 //nos dice  si es una figura poligonal
                 CvInvoke.ApproxPolyDP(contour, approxContour, CvInvoke.ArcLength(contour, true) * 0.05, true);
+
                 // Calcula el área de todo el contorno o sección del contorno.
                 double area = CvInvoke.ContourArea(approxContour, false);
-                // MessageBox.Show(area.ToString());
 
+                //aqui lo que hacemos es quedarnos con el contorno que tenga 4 lados o mas,(nos quedamos con 4 lados o mas y no con 4 solo, por si la imagen estuviese doblada)
+                //y que sea el mayor
                 if (approxContour.Size >= 4 && area < 9600 && area>maxArea)
                 {
-                    //MessageBox.Show(area.ToString());
+                    
                     maxArea = area;
+                    //seleccionamos el recuadro delimitador que va a ser la casilla del voto en concreto
                     rect = CvInvoke.BoundingRectangle(approxContour);
+                   //recortamos y nos quedamos con la parte la casilla para buscar si dentro esta marcado o no
                     using (UMat cuadrado = new UMat(uimage, rect))
                     {
+                        //cuadrado.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada_c.png");
                         blackQty = CvInvoke.CountNonZero(cuadrado);
-                        //MessageBox.Show(blackQty.ToString());
+                        
+                        //si la cantidad de negro dentro de la casilla está entre 3000 y 6700 está marcada
                         if (blackQty < 6700&& blackQty>3000)
                         {
-                            //MessageBox.Show(blackQty.ToString());
                             p.partidosPapeleta[k].Marcado = true;
                         }
                     }
@@ -132,6 +144,7 @@ namespace OCRVoteExtractor
             }
 
             if (!rect.IsEmpty)
+            
             img.Draw(rect, new Bgr(Color.Red), 2);
             
             img.ROI = new Rectangle();
@@ -158,6 +171,8 @@ namespace OCRVoteExtractor
         public void buscar(Image<Bgr, Byte> img, Papeleta p)
         {
             List<Rectangle> rectangulos = new List<Rectangle>();
+
+            //creamos un rectangulo por cada zona de cada partido y los guardamos en una lista de rectangulos
             for (int i = 0; i < p.partidosPapeleta.Count(); i++)
             {
                 Rectangle rect = new Rectangle(this.xT + p.partidosPapeleta[i].DistX, this.yT + p.partidosPapeleta[i].DistY, p.partidosPapeleta[i].Ancho, p.partidosPapeleta[i].Alto);
@@ -170,6 +185,7 @@ namespace OCRVoteExtractor
 
             for (int k = 0; k < rectangulos.Count; k++)
             {
+
                p=pintarCuadros(rectangulos[k],k,p);
             }
             img = new Image<Bgr, byte>((Bitmap)pictureBox1.Image);
@@ -184,72 +200,7 @@ namespace OCRVoteExtractor
 
         }
 
-        /*public void pintaCuadrados()
-        {
-            // detectar si hay cuadrados
-
-            Image<Bgr, Byte> img = new Image<Bgr, byte>((Bitmap)pictureBox1.Image);
-            //System.IO.FileInfo f = new System.IO.FileInfo(imagen);
-            UMat uimage = new UMat();
-            CvInvoke.CvtColor(img, uimage, ColorConversion.Bgr2Gray);
-            UMat pyrDown = new UMat();
-            UMat cannyEdges = new UMat();
-            // CvInvoke.AdaptiveThreshold(uimage, uimage, 125, AdaptiveThresholdType.MeanC, ThresholdType.Binary, 11, 12);
-            CvInvoke.Threshold(uimage, uimage, 180, 200, ThresholdType.Binary);
-            //CvInvoke.Threshold(uimage, uimage, 127, 256, 0);
-
-
-
-            var element = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(3, 3), new Point(-1, -1));
-
-            //CvInvoke.Dilate(uimage, uimage, element, new Point(-1, -1), 1, BorderType.Isolated, default(MCvScalar));
-            CvInvoke.Erode(uimage, uimage, element, new Point(-1, -1), 1, BorderType.Default, default(MCvScalar));
-
-            //CvInvoke.Dilate(uimage, uimage, element, new Point(-1, -1),2, BorderType.Reflect, default(MCvScalar));
-            uimage.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada_erode.png");
-            // CvInvoke.PyrDown(uimage, pyrDown);
-            // CvInvoke.PyrUp(pyrDown, uimage);
-            //CvInvoke.Threshold(uimage, uimage, 50, 255, ThresholdType.Binary);
-
-            CvInvoke.Canny(uimage, cannyEdges, 100, 250);
-            cannyEdges.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada_canny.png");
-
-            VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint();
-            CvInvoke.FindContours(cannyEdges, contours, null, RetrType.List, ChainApproxMethod.ChainApproxSimple);
-            int count = contours.Size;
-            int a = 0;
-            for (int i = 0; i < count; i++)
-            {
-                VectorOfPoint contour = contours[i];
-                VectorOfPoint approxContour = new VectorOfPoint();
-                //nos dice  si es una figura poligonal
-                CvInvoke.ApproxPolyDP(contour, approxContour, CvInvoke.ArcLength(contour, true) * 0.05, true);
-                // Calcula el área de todo el contorno o sección del contorno.
-                double area = CvInvoke.ContourArea(approxContour, false);
-
-                if (approxContour.Size >= 4)
-                {
-                    // es un cuadrado
-                    
-                    Rectangle rect = CvInvoke.BoundingRectangle(approxContour);
-                    if (rect.Width > (img.Width * 0.02) && rect.Width < (img.Width * 0.06)
-                        && rect.Height > (img.Height * 0.04) && rect.Height < (img.Height * 0.07))
-                    {
-                        a++;
-                        //MessageBox.Show(approxContour.Size.ToString());
-                        img.Draw(rect, new Bgr(Color.Red), 2);
-                        pictureBox1.Image = img.ToBitmap();
-                    }
-
-
-                }
-
-            }
-            pictureBox1.Image = img.ToBitmap();
-            img.Save("C:\\Users\\alain\\Documents\\PFG\\OCRVoteExtractor\\OCRVoteExtractor\\OCRVoteExtractor\\imagen\\guardada_rectangulo_j.jpg");
-            MessageBox.Show("Numero de cuadrados imagen es de " + a);
-
-        }*/
+       
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -366,18 +317,19 @@ namespace OCRVoteExtractor
             
         }
 
-
+        //Método para cargar las papeletas en el listbox escaneadas previamente
         private void btnScanners_Click(object sender, EventArgs e)
         {
            
             try {
-                Escanear();
+                //Escanear();
+                //Creamos una lista de objetos papeletas
                 Papeletas = new List<Papeleta>();
                 listBox1.Items.Clear();
 
                 foreach (String folder in Directory.GetFiles(ruta_papeletas))
                 {
-                    listBox1.Sorted = false;
+                    //listBox1.Sorted = false;
                     listBox1.Items.Add(Path.GetFileName(folder));
                     
                     papeleta = new Papeleta(this.r.ruta_papeletas + "\\" + Path.GetFileName(folder));
@@ -388,12 +340,18 @@ namespace OCRVoteExtractor
                 }
 
                
-                btnTerminar.Enabled = true;
+                
 
                 Image<Bgr, Byte> img_original = new Image<Bgr, Byte>(ruta_papeletas + "\\" + listBox1.Items[0].ToString());
                 pictureBox1.Image = img_original.ToBitmap();
                 //listBox1.SelectedIndex = 0;
 
+                if (listBox1.Items.Count != 0)
+                {
+                    btnTerminar.Enabled = true;
+                }
+               
+                //se le asigna al progress bar un maximo igual al numero de papeletas, para que vaya haciendo el efecto de avanzando mientras se procesan
                 progresResultado.Maximum = Papeletas.Count;
 
             }
@@ -445,19 +403,23 @@ namespace OCRVoteExtractor
             oGdPictureImaging.TwainCloseSource();
         }
 
+        //Cada vez que el usuario seleccione un objeto de la lista se cargará su imagen correspondiente dada la ruta
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (listBox1.SelectedIndex != -1)
+            {
+                Image<Bgr, Byte> img_original = new Image<Bgr, Byte>(ruta_papeletas + "\\" + listBox1.Items[listBox1.SelectedIndex].ToString());
+                pictureBox1.Image = img_original.ToBitmap();
+            }
             
-            Image<Bgr, Byte> img_original = new Image<Bgr, Byte>(ruta_papeletas + "\\" + listBox1.Items[listBox1.SelectedIndex].ToString());
-            pictureBox1.Image = img_original.ToBitmap();
         }
 
         private void tsmtSalir_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-
-
+        
+        //Con este método vamos a guardar todos los resultados de las papeletas en un json para luego comprobarlo, las papeletas sin votar o con mas de un voto se excluyen
         private void GuardarResultado()
         {
             
@@ -495,6 +457,8 @@ namespace OCRVoteExtractor
            
             MessageBox.Show("Resultados guardados en el json correctamente. Votación terminada!!");
         }
+
+        
         private void btnTerminar_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Empezando el procesamiento de papeletas");
@@ -513,11 +477,11 @@ namespace OCRVoteExtractor
                 //}
 
                 
-
+                //cargamos la imagen con el template detectado y encuadrado
                 Image<Bgr, Byte> img = detectTemplate();
                 //btnBuscarCuadros.Enabled = true;
 
-
+                //
                 buscar(img, Papeletas[listBox1.SelectedIndex]);
                 //listBox1.Items.Count
 
@@ -566,7 +530,7 @@ namespace OCRVoteExtractor
             oGdPictureImaging.TwainCloseSourceManager(this.Handle);
         }
 
-
+        //Mediante este metodo vamos enviando mediante petición put con http al servidor el resultado de cada papeleta para que sume el voto en la bd a su representante
         private void enviarResultados()
         {
             for(int i = 0; i < this.res.Papeletas.Count; i++)

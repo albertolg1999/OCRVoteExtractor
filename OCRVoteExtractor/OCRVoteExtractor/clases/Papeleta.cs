@@ -20,6 +20,7 @@ namespace OCRVoteExtractor.clases
             this.partidosPapeleta = new List<partido>();
         }
 
+        //Metodo para cargar por cada partido sus datos de el xml previamente creado  a mano con todos los partidos (sirve para buscar las zonas donde se encontrará la casilla del voto
         public void cargarPartidos()
         {
             XmlDocument xDoc;

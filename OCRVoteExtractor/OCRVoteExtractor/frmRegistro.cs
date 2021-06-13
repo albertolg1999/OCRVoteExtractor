@@ -70,15 +70,24 @@ namespace OCRVoteExtractor
                         {
                             if (strReader == null)
                             {
-                                MessageBox.Show("El usuario ya existe en la bd");
+                                
                             }
                             else
                             {
                                 using (StreamReader objReader = new StreamReader(strReader))
                                 {
                                     string responseBody = objReader.ReadToEnd();
+                                    if(responseBody!= "Usuario insertado correctamente")
+                                    {
+                                        MessageBox.Show("El usuario ya existe en la bd");
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Insertado correctamente");
+                                        
+                                    }
                                     // Do something with responseBody
-                                    MessageBox.Show("Insertado correctamente");
+                                   
                                 }
                             }
 
@@ -90,7 +99,7 @@ namespace OCRVoteExtractor
 
                     // Handle error
 
-                    MessageBox.Show("El usuario ya existe en la bd");
+                    MessageBox.Show("El usuario ya existe en la bd", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
 
                 }
@@ -125,6 +134,7 @@ namespace OCRVoteExtractor
         private void btnVolver_Click(object sender, EventArgs e)
         {
             this.fl.Show();
+            this.fl.limpiarCampos();
             this.Hide();
         }
 

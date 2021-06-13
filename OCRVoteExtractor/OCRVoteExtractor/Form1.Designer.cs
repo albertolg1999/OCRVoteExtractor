@@ -28,10 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnEnviar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.progresResultado = new System.Windows.Forms.ProgressBar();
+            this.btnTerminar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -45,7 +47,6 @@
             this.cerrarAdministradorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmtSalir = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.btnTerminar = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -103,6 +104,21 @@
             this.progresResultado.Size = new System.Drawing.Size(227, 13);
             this.progresResultado.Step = 1;
             this.progresResultado.TabIndex = 18;
+            // 
+            // btnTerminar
+            // 
+            this.btnTerminar.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btnTerminar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnTerminar.Enabled = false;
+            this.btnTerminar.FlatAppearance.BorderSize = 0;
+            this.btnTerminar.Location = new System.Drawing.Point(419, 424);
+            this.btnTerminar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnTerminar.Name = "btnTerminar";
+            this.btnTerminar.Size = new System.Drawing.Size(181, 76);
+            this.btnTerminar.TabIndex = 17;
+            this.btnTerminar.Text = "Procesar Papeletas";
+            this.btnTerminar.UseVisualStyleBackColor = false;
+            this.btnTerminar.Click += new System.EventHandler(this.btnTerminar_Click);
             // 
             // label1
             // 
@@ -236,21 +252,6 @@
             this.menuStrip1.TabIndex = 9;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // btnTerminar
-            // 
-            this.btnTerminar.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnTerminar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnTerminar.Enabled = false;
-            this.btnTerminar.FlatAppearance.BorderSize = 0;
-            this.btnTerminar.Location = new System.Drawing.Point(419, 424);
-            this.btnTerminar.Margin = new System.Windows.Forms.Padding(2);
-            this.btnTerminar.Name = "btnTerminar";
-            this.btnTerminar.Size = new System.Drawing.Size(181, 76);
-            this.btnTerminar.TabIndex = 17;
-            this.btnTerminar.Text = "Procesar Papeletas";
-            this.btnTerminar.UseVisualStyleBackColor = false;
-            this.btnTerminar.Click += new System.EventHandler(this.btnTerminar_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -259,9 +260,10 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "OCRVoteExtractor";
+            this.Text = "Procesado Papeletas";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAdmin));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.administraciónUsuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiResultados = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,11 +91,12 @@
             this.ClientSize = new System.Drawing.Size(931, 530);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmAdmin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmAdmin";
+            this.Text = "Administración";
             this.Load += new System.EventHandler(this.frmAdmin_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

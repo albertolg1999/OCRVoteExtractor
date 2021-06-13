@@ -530,6 +530,11 @@ namespace OCRVoteExtractor
             oGdPictureImaging.TwainCloseSourceManager(this.Handle);
         }
 
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
         //Mediante este metodo vamos enviando mediante petición put con http al servidor el resultado de cada papeleta para que sume el voto en la bd a su representante
         private void enviarResultados()
         {
@@ -554,6 +559,9 @@ namespace OCRVoteExtractor
                            // MessageBox.Show(strReader.ToString());
                             if (strReader == null)
                             {
+                               /// Registremos uno ya insertado
+
+
                                 //MessageBox.Show("El usuario ya existe en la bd");
                             }
                             else

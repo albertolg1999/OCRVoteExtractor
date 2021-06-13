@@ -12,3 +12,13 @@ C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\
 C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Release\OCRVoteExtractor.exe
 C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Release\OCRVoteExtractor.pdb
 C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Release\OCRVoteExtractor.csprojResolveAssemblyReference.cache
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\bin\Release\Emgu.CV.UI.GL.dll
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\bin\Release\Newtonsoft.Json.dll
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\bin\Release\Emgu.CV.UI.xml
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\bin\Release\Emgu.CV.UI.GL.xml
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\bin\Release\Emgu.CV.World.xml
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\bin\Release\Newtonsoft.Json.xml
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Release\OCRVoteExtractor.frmAdmin.resources
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Release\OCRVoteExtractor.frmAdminUsuarios.resources
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Release\OCRVoteExtractor.frmResultados.resources
+C:\Users\alain\Documents\PFG\OCRVoteExtractor\OCRVoteExtractor\OCRVoteExtractor\obj\Release\OCRVoteExtractor.frmUsuario.resources

@@ -7,6 +7,7 @@ using System.Xml;
 
 namespace OCRVoteExtractor.clases
 {
+    //Clase para cargar los partidos y las posiciones y tamaño de la zona creada a ojo anteriormente para buscar dentro de ella la casilla. Por cada papeleta se creara una lista de partidos
     public class Papeleta
     {
         public string path_file;

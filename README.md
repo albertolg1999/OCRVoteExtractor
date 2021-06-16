@@ -20,7 +20,7 @@
 ## Gitflow
 
 <br />
-<img align="left" alt="gittree" width="800px" src="https://github.com/albertolg1999/OCRVoteExtractor/blob/desarrollo/imagenes%20wiki/gitflow.PNG" />
+<img align="left" alt="gittree" width="600px" src="https://github.com/albertolg1999/OCRVoteExtractor/blob/desarrollo/imagenes%20wiki/gitflow.PNG" />
 <br />
 
 

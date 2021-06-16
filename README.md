@@ -11,20 +11,22 @@
 <br />
 💪 Manual de usuario: [guia]
 <br />
-👨‍💻 Código fuente: [source] 
+👨‍💻 Código fuente cliente: [source] 
+<br />
+👨‍💻 Código fuente Servidor: [sourceServ] 
 <br />
 📹 Vídeo explicativo: [video]
 
 ## Herramientas y tecnologías utilizadas 🔨
 
-[<img align="left" alt="Spring tools suite" width="26px" src="https://www.fontana.com.ar/wp-content/uploads/2018/10/spring-boot-logo.png"/>][flutter]
-[<img align="left" alt="Visual Studio Code" width="26px" src="https://www.gstatic.com/devrel-devsite/prod/veaa02889f0c07424beaa31d9bac1e874b6464e7ed7987fde4c94a59ace9487fa/firebase/images/touchicon-180.png" />][firebase]
-<img align="left" alt="Visual Studio Code" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/visual-studio-code/visual-studio-code.png" />
+[<img align="left" alt="Spring tools suite" width="26px" src="https://www.fontana.com.ar/wp-content/uploads/2018/10/spring-boot-logo.png"/>][Spring boot]
+[<img align="left" alt="Visual Studio" width="26px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Visual_Studio_Logo_%282013-2017%29.svg/500px-Visual_Studio_Logo_%282013-2017%29.svg.png" />][Visual Studio]
 <br />
 <br />
 
 
-[wiki]: https://github.com/CarlosDez23/Instadroid/wiki
-[guia]: https://carlosdez23.github.io/Instadroid/
-[source]: https://github.com/CarlosDez23/Instadroid/tree/master/instadroid
-[video]: https://youtu.be/oWyE874w12M
+[wiki]: https://github.com/albertolg1999/OCRVoteExtractor/wiki
+[guia]: https://github.com/albertolg1999/OCRVoteExtractor/blob/desarrollo/Manual%20de%20Usuario.pdf
+[source]: https://github.com/albertolg1999/OCRVoteExtractor/tree/desarrollo
+[sourceServ]: https://github.com/albertolg1999/voteExtractorApiRest/tree/master
+[video]: https://www.youtube.com/watch?v=QDvM51cfglY

@@ -17,6 +17,13 @@
 <br />
 📹 Vídeo explicativo: [video]
 
+## Gitflow
+
+<br />
+<img align="left" alt="gittree" width="1000px" src="https://github.com/albertolg1999/OCRVoteExtractor/blob/desarrollo/imagenes%20wiki/gitflow.PNG" />
+<br />
+
+
 ## Herramientas y tecnologías utilizadas 🔨
 
 [<img align="left" alt="Spring tools suite" width="26px" src="https://www.fontana.com.ar/wp-content/uploads/2018/10/spring-boot-logo.png"/>][Spring boot]
